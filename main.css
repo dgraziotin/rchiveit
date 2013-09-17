@@ -51,15 +51,23 @@ div.mayhide
 	display:none;
 }
 
+.permission {
+	color: #555555;
+}
 div.conditions {
 	padding-top:15px;
 }
 
-div.conditions h4 {
+div.conditions h4{
 	clear:both;
 	display:block;
 	margin-bottom:20px;
 	font-size:1.4em;
+	color:#555555;
+}
+
+div.disclaimer h4 {
+	color: #555555;
 }
 
 .text-center {

@@ -7,6 +7,7 @@ function restriction_icon(rule){
         return "icon-meh";
     if (rule == "unclear")
         return "icon-question";
+    
     return "icon-exclamation";
 };
 
