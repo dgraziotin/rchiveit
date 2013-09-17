@@ -39,6 +39,7 @@ $(document).ready(function() {
         var journal_name = encodeURI($.trim($('#query').val()));
         if (!journal_name || $.active)
             return;
+        $('div.pre-pre-results').css('visibility','visible');
         please_wait(true);
         hide_messages();
         clean_results();
@@ -65,7 +66,7 @@ $(document).ready(function() {
         });
     });
 
-    $('span.tryout').click(function(){
+    $('button.tryout').click(function(){
         if ($.active)
             return;
         $('#query').val($(this).text());

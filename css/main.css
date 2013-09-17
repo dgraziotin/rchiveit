@@ -32,6 +32,10 @@ div.journal{
 	font-size:5em;
 }
 
+.pre-pre-results {
+	visibility:hidden;
+}
+
 .pre-results{
 	min-height:40em;
 	padding:0;
