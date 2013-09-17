@@ -1,0 +1,75 @@
+div.margin-top-lg { 
+	margin-top:50px; 
+}
+
+div.margin-top-md { 
+	margin-top:20px; 
+}
+
+span.label {
+	margin:0 10px;
+	cursor: pointer;
+}
+
+form#sherparomeo{
+	margin-top:30px;
+}
+
+span.label:hover{
+	
+}
+
+div.journal {
+	min-height:150px;
+}
+
+div.journal:hover {
+	background-color:#2fa4e7;
+	cursor: pointer;
+}
+
+div.journal{
+	font-size:5em;
+}
+
+.pre-results{
+	min-height:40em;
+	padding:0;
+	margin:0;
+}
+
+div#results{
+	padding:0 30px;
+}
+
+div#journalallows div h1 abbr{
+	text-transform: uppercase;
+}
+
+div.mayhide
+{
+	display:none;
+}
+
+div.conditions {
+	padding-top:15px;
+}
+
+div.conditions h4 {
+	clear:both;
+	display:block;
+	margin-bottom:20px;
+	font-size:1.4em;
+}
+
+.text-center {
+text-align: center;
+margin-left: auto;
+margin-right: auto;
+float: none;
+}
+
+p {
+	font-size:1.1em;
+	text-align: justify;
+}

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Can I archive my version of the scientific paper?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./bootstrap.css" media="screen">
+    <link rel="stylesheet" href="./bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./assets/css/bootswatch.min.css">
+    <link rel="stylesheet" href="./main.css" media="screen">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="./bower_components/bootstrap/assets/js/html5shiv.js"></script>
+      <script src="./bower_components/bootstrap/assets/js/respond.min.js"></script>
+    <![endif]-->
+    <script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-5685155-10', 'rchive.it');
+    ga('send', 'pageview');
+    </script>
+</head>
+
+<body>
+
+
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="../" class="navbar-brand">rchive<strong>it</strong></a>
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-main">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#why" class="scroll">Why self-archiving a paper?</a>
+                    </li>
+                    <li><a href="#about" class="scroll">About</a>
+                    </li>
+                    <li><a href="#contribute" class="scroll">Contribute</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="page-header" id="banner">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Can I
+                        <a href="http://en.wikipedia.org/wiki/Self-archiving">
+                            <abbr class="highlight" title="Posting to a personal/academic Website and/or a repository">archive</abbr>
+                        </a>
+                        my
+                        <a href="http://en.wikipedia.org/wiki/Eprint">
+                            <abbr title="Digital (PDF) version of a journal/conference/workshop article">e-print</abbr>?
+                        </a>
+                    </h1>
+                    <!-- <p class="lead"></p> -->
+                    <form action="" id="sherparomeo" class="form-search">
+                        <div class="form-group">
+                            <label class="control-label">Lookup the Journal / Conference Proceedings Name</label>
+                            <div class="input-group">
+                                <input class="form-control" type="text" id="query" name="jornalname">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="look">Search</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                    <p>Try some of these:
+                        <span class="label label-default">Lecture Notes in Computer Science</span>
+                        <span class="label label-default">Information and Software Technology</span>
+                        <span class="label label-default">MIS Quarterly</span>
+                        <span class="label label-default">Journal of Open Research Software</span>
+                        <span class="label label-default">PLOS ONE</span>
+                        <span class="label label-default">PeerJ</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body pre-results">
+                <div class="row mayhide" id="results">
+                    <!-- headers -->
+                    <div class="row mayhide" id="journalheaders">
+                        <div class="col-md-8 col-md-offset-2 text-center">
+                            <h1 id="journalname" class="mayempty"></h1>
+                            <h3 id="journalpublisher" class="mayempty"></h3>
+                            <h4 id="journalissn" class="mayempty"></h4>
+                        </div>
+                    </div>
+
+                    <!-- permissions -->
+                    <div class="row margin-top-lg mayhide" id="journalallows">
+                        <div class="col-md-4" id="preprint">
+                            <h1 class="permission icon-thumbs-up-alt mayhide">
+                                <abbr title="Basically, the LaTeX‎ / Word generated PDF of your paper that is ready to be submitted (even for major/minor revision), no matter what template you use">Preprint</abbr>
+                            </h1>
+                            <h4 class="permission can mayhide">You
+                                <strong>are allowed</strong> to publish your pre-referee (
+                                <em>before peer-review</em>) version of your paper on your website, on an institutional archive, and on systems like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
+                            <h4 class="permission restricted mayhide">You
+                                <strong>may be allowed</strong> to publish your pre-referee (
+                                <em>before peer-review</em>) version of your paper on your website, on an institutional archive, and on systems like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
+                            <h4 class="permission cannot mayhide">You
+                                <strong>are not allowed</strong> to publish your pre-referee (
+                                <em>before peer-review</em>) version of your paper on your website, on an institutional archive, and on systems like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
+                            <h4 class="permission unclear mayhide">It is
+                                <strong>unclear</strong>if you can publish your pre-referee (
+                                <em>before peer-review</em>) version of your paper on your website, on an institutional archive, and on systems like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
+                            <p class="permission conditions mayhide">Some conditions below may apply. Please review them.</p>
+                        </div>
+                        <div class="col-md-4 mayhide" id="postprint">
+                            <h1 class="icon-thumbs-up-alt mayhide">
+                                <abbr title="Basically, the LaTeX‎ / Word generated PDF of the accepted paper, no matter what template you use">Postprint</abbr>
+                            </h1>
+                            <h4 class="permission can mayhide">You
+                                <strong>are allowed</strong> to publish your post-referee (
+                                <em>after peer-review and/or editorial acceptance</em>) version of your paper on your website, on an institutional archive, and on systems like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
+                            <h4 class="permission restricted mayhide">You
+                                <strong>may be allowed</strong> to publish your post-referee (
+                                <em>after peer-review and/or editorial acceptance</em>) version of your paper on your website, on an institutional archive, and on systems like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
+                            <h4 class="permission cannot mayhide">You
+                                <strong>are not allowed</strong> to publish your post-referee (
+                                <em>after peer-review and/or editorial acceptance</em>) version of your paper on your website, on an institutional archive, and on systems like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
+                            <h4 class="permission unclear mayhide">It is
+                                <strong>unclear</strong>if you can publish your post-referee (
+                                <em>after peer-review and/or editorial acceptance</em>) version of your paper on your website, on an institutional archive, and on systems like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
+                            <p class="permission conditions mayhide">Some conditions below may apply. Please review them.</p>
+                        </div>
+                        <div class="col-md-4 mayhide" id="pdfarchiving">
+                            <h1 class="icon-thumbs-up-alt mayhide">
+                                <abbr title="The published PDF of your paper, as it is when you download it from the journal Website">Publisher PDF</abbr>
+                            </h1>
+                            <h4 class="permission can mayhide">You
+                                <strong>are allowed</strong> to publish the publisher PDF (the published article) of your paper on your website, on an institutional archive, and on systems like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
+                            <h4 class="permission restricted mayhide">You
+                                <strong>may be allowed</strong> to publish the publisher PDF (the published article) of your paper on your website, on an institutional archive, and on systems like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
+                            <h4 class="permission cannot mayhide">You
+                                <strong>are not allowed</strong> to publish the publisher PDF (the published article) of your paper on your website, on an institutional archive, and on systems like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
+                            <h4 class="permission unclear mayhide">It is
+                                <strong>unclear</strong>if you can publish the publisher PDF (the published article) of your paper on your website, on an institutional archive, and on systems like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
+                            <p class="permission conditions mayhide">Some conditions below may apply. Please review them.</p>
+                        </div>
+                    </div>
+
+                    <!-- conditions -->
+                    <div class="row margin-top-lg mayhide" id="additionalinfo">
+                        <div class="col-md-4" id="journalconditions">
+                            <h1 class="icon-list-ul">
+                                <abbr title="">Conditions</abbr>
+                            </h1>
+                            <div class="conditions mayempty">
+                                <h4 class="icon-check">Publisher's version/PDF may be used</h4>
+                            </div>
+                        </div>
+
+                        <!-- more info -->
+                        <div class="col-md-4 mayhide" id="journalmorerights">
+                            <h1 class="icon-file-text-alt">
+                                <abbr title="Check this sources in order to be sure of the information displayed in this website">More Information</abbr>
+                            </h1>
+                            <div class="journalcopyrightlinks mayempty">
+
+                            </div>
+                        </div>
+
+                        <!-- disclaimer -->
+                        <div class="col-md-4 mayhide" id="journaldisclaimer">
+                            <h1 class="icon-info">
+                                <abbr title="Start with this website. End with your own tools.">Disclaimer</abbr>
+                            </h1>
+                            <div class="disclaimer">
+                                <h4>The purpose of <a href="http://rchive.it">rchive.it</a> is to find a human readable summary of a summary provided by <a href="http://www.sherpa.ac.uk/romeo/issn/2167-8359/">SHERPA/RoMEO</a> of permissions that are normally given as part of each publisher's copyright transfer agreement.</h4>
+                                <h4>This summary of a summary is for the journal's default policies, and changes or exceptions can often be negotiated by authors.</h4>
+                                <h4>All information is correct to the best of the knowledge of <a href="http://www.sherpa.ac.uk">SHERPA/RoMEO</a> but neither them nor <a href="http://rchive.it">rchive.it</a> and its authors should not be relied upon for legal advice.</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-top-lg" id="why">
+            <div class="col-md-8 col-md-offset-2">
+                <h1>
+                    <br/>Why self-archiving a paper?</h1>
+                <p>
+                    Did you know that the most prominent publishers in Computer Science fields (Software Engineering and Information Systems in particular) - including ACM, IEEE, INFORMS, Elsevier, ME Sharpe, Palgrave Macmillan, Springer Verlag, John Wiley and Sons [<a href="#ref1" class="scroll">1</a>] - let you deposit at least your
+                    <abbr title="The LaTeX‎ / Word generated PDF of your paper that is ready to be submitted (even for major/minor revision), no matter what template you use">preprint</abbr>on your personal website and/or on an institutional repository?
+                </p>
+                <p>
+                    Even if you are not researching in these fields, did you know that roughly 90% of all the scientific publishers [<a href="#ref2" class="scroll">2</a>] let you post your version of the research article on your website and/or on third party repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>?
+                </p>
+                <h3>
+                    Now you know that.
+                </h3>
+                <p>
+                    Why aren't you <a href="http://en.wikipedia.org/wiki/Self-archiving">self-archiving your research articles</a>? There are huge benefits. One of them is that your article will reach a significantly greater audience compared to not doing so [<a href="#ref3" class="scroll">3</a>]. This implies also that your research article will significantly gain in number of citations [<a href="#ref4" class="scroll">4</a>][<a href="#ref5" class="scroll">5</a>].
+                </p>
+                <p>
+                    Just think about how much this would help practitioners, as individual access to a research article has high costs. Research would benefit as well. It happens to me all the time, it happens to you as well. It does not necessarily have to be an article from a field outside from the scopes of a university. We should not take for granted that other institutions possess the same access level that our institution has got.
+                </p>
+                <p>
+                    Self-archiving would solve this. Suppose I am looking for the happiness of software developers and the correlation with their productivity. Google Scholar has few results but one of them seems interesting for my research scopes.
+                </p>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="text-center">
+                            <img src="img/google_scholar_eprint.jpg" class="img-rounded img-responsive" alt="Responsive image">
+                        </p>
+                    </div>
+                </div>
+                <p>
+                    However, when I try to access it, I get hit by a
+                    <abbr title="A system that prevents Internet users from accessing a resource without a paid subscription.">paywall</abbr>. Same old story. The situation gets worse if I engage in a multidisciplinary research. My institution does not have the resources to subscribe to any existing journal in the world.
+                </p>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p>
+                            <img src="img/paywall.jpg" class="text-center img-rounded img-responsive" alt="Responsive image">
+                        </p>
+                    </div>
+                </div>
+                <p>
+                    However, if one of the authors invests 5 minutes of his/her time to upload the preprint somewhere, Google Scholar (and other systems) will reach it, and serve it to whoever finds the article. See the blue rectangle in the first picture? It is a <a href="http://arxiv.org/ftp/arxiv/papers/1308/1308.2597.pdf">direct link to the PDF preprint of that article</a>.
+                    <br/>Other people will directly <a href="http://arxiv.org/abs/1306.1772">find the preprint</a> instead of the original article.
+                </p>
+                <p>
+                    The results:
+                </p>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="text-center">
+                            <img src="img/preprint.jpg" class="text-center img-rounded img-responsive" alt="Responsive image">
+                        </p>
+                    </div>
+                </div>
+                <p>
+                    The article is accessed, barrier free. This practice is often called <a href="http://en.wikipedia.org/wiki/Open_access#Self-archiving:_green_open_access">Green Open Access</a>. I can read the paper, acquire new knowledge for my own research purposes, and cite it. How would I cite it? By following the instructions left by the authors.
+                </p>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="text-center">
+                            <img src="img/bibliographic_info.jpg" class="text-center img-rounded img-responsive" alt="Responsive image">
+                        </p>
+                    </div>
+                </div>
+                <p>
+                    See? Nobody gets hurt. You do not necessarily have to be an adopter of <a href="http://en.wikipedia.org/wiki/Open_access#Journals:_gold_open_access">Gold Open Access journals</a>, if you are "concerned about your career and your prestige". You should not be, by the way.
+                    <br/>However, if you want to keep publishing in your usual subscription-based journals, at least self-archive your paper. Use <a href="http://rchive.it">rchive.it</a> to verify to which extent this is permitted.
+                </p>
+                <h3>There are no excuses.</h3>
+                <p>This is a win-win situation. Just self-archive your research. Now.</p>
+            </div>
+        </div>
+
+        <div class="row margin-top-lg" id="about">
+            <div class="col-md-8 col-md-offset-2">
+                <h1>
+                    <br/>About</h1>
+                <p>
+                    rchive<strong>it</strong> is a Web applications, which is nothing else than a wrapper for <a href="http://www.sherpa.ac.uk/romeo/">SHERPA/RoMEO</a> service. Indeed, it uses <a href="http://www.sherpa.ac.uk/romeo/api.html">SHERPA/RoMEO API</a>.
+                </p>
+                <p>
+                    rchive<strong>it</strong> was developed as a response to the rarely employed practice of self-archiving research articles [<a href="#ref2" class="scroll">2</a>]. Researchers are misinformed on their rights when they submit a research paper to a journal or a conference. While SHERPA/RoMEO does a great, extensive job in collecting and organizing the publishers' copyright and self-archiving policies, its interface is outdated and the provided information are too much for non-technical people. Most still don't know what Open Access is, especially in the field of Computer Science.
+                </p>
+                <p>
+                    rchive<strong>it</strong> provides a fresher (still improvable) user interface and only the strictly important information needed by the researcher. Just a symbol near the words preprint, postprint, and publisher PDF, followed by a single paragraph of explanations.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="row margin-top-lg" id="contribute">
+            <div class="col-md-8 col-md-offset-2">
+                <h1>
+                    <br/>Contribute</h1>
+                <p>
+                    There are several ways to contribute to rchive<strong>it</strong>.
+                </p>
+            </div>
+        </div>
+
+        <div class="row margin-top-lg" id="about">
+            <div class="col-md-8 col-md-offset-2">
+                <h1>
+                    <br/>References</h1>
+                <ol>
+                    <li id="ref1">Graziotin D, Wang X, Abrahamsson P (2013) A Framework for Systematic Analysis of Open Access Journals and its Application in Software Engineering and Information Systems. <a href="http://arxiv.org/abs/1308.2597">arXiv:1308.2597</a>.</li>
+                    <li id="ref2">Harnad S, Brody T, Vallières F, Carr L, Hitchcock S, Gingras Y, Oppenheim C, Hajjem Chawki, Hilf ER (2008) The Access/Impact Problem and the Green and Gold Roads to Open Access: An Update. Serials Review 34(1): 36-40. DOI:<a href="http://dx.doi.org/10.1016/j.serrev.2007.12.005">10.1016/j.serrev.2007.12.005</a>.</li>
+                    <li id="ref3">Harnad S, Brody T (2004) Comparing the Impact of Open Access (OA) vs. Non-OA Articles in the Same Journals. DLib Magazine 10: 2–6. DOI: <a href="http://dx.doi.org/10.1045/june2004-harnad">10.1045/june2004-harnad</a>
+                    </li>
+                    <li id="ref4">Eysenbach G (2006) Citation Advantage of Open Access Articles. PLoS Biol 4(5): e157. DOI:<a href="http://dx.doi.org/10.1371/journal.pbio.0040157">10.1371/journal.pbio.0040157</a>
+                    </li>
+                    <li id="ref5">Gargouri Y, Hajjem C, Larivière V, Gingras Y, Carr L, et al. (2010) Self-Selected or Mandated, Open Access Increases Citation Impact for Higher Quality Research. PLoS ONE 5(10): e13636. doi:<a href="http://dx.doi.org/10.1371/journal.pone.0013636">10.1371/journal.pone.0013636</a>
+                    </li>
+                </ol>
+            </div>
+
+        </div>
+
+        <footer>
+            <div class="row margin-top-lg">
+                <div class="col-md-8 col-md-offset-2">
+                    <p>Made by <a href="http://task3.cc">Daniel Graziotin</a>. Contact him at graziotin AT inf DOT unibz DOT it.</p>
+                    <p>Based on theme <a href="http://bootswatch.com/">Cerulean</a> by <a href="http://thomaspark.me/">Thomas Park</a>.</p>
+                    <p>Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>.</p>
+                    <p>Based on <a href="http://getbootstrap.com">Bootstrap</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts">Google</a>. Favicon by <a href="https://twitter.com/geraldhiller">Gerald Hiller</a>.</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="./bower_components/jquery/jquery.min.js"></script>
+    <script src="./bower_components/jquery/jquery.xml2json.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./assets/js/bootswatch.js"></script>
+    <script src="./cleanresults.js"></script>
+    <script src="./multipleresults.js"></script>
+    <script src="./singleresult.js"></script>
+    <script src="./main.js"></script>
+</body>
+
+</html>
