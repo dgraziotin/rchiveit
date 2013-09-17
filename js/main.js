@@ -55,6 +55,7 @@ $(document).ready(function() {
                 $('div.row.row-journals').remove();
                 $('#results').append('<div class="row"></div>');
                 show_message('No results found.');
+                scroll_to('#examples',3000);
                 return;
             } else if (results_count == 1) {
                 $('div.row.row-journals').remove();
@@ -63,6 +64,7 @@ $(document).ready(function() {
                 return;
             } else {
                 show_results(json);
+                scroll_to('#examples',3000);
             }
         });
     });
