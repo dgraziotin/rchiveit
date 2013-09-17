@@ -30,6 +30,12 @@ function scrollTo(id){
 
 $(document).ready(function() {
 
+    jQuery('span.email').each(function(i) {
+        var text = jQuery(this).text();
+        var address = text.replace(' AT ', '@').replace(' DOT ', '.').replace(' DOT ', '.');
+        jQuery(this).text(address);
+    });
+
     $('body').on('click', 'div.journal', function() {
         please_wait(true);
         clean_results();
@@ -85,7 +91,7 @@ $(document).ready(function() {
         });
     });
 
-    $('span.label').click(function(){
+    $('span.tryout').click(function(){
         $('#query').val($(this).text());
         $('button#look').click();
     });
