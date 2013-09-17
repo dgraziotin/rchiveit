@@ -59,6 +59,7 @@ $(document).ready(function() {
             } else if (results_count == 1) {
                 $('div.row.row-journals').remove();
                 show_result(json);
+                scroll_to('#examples',3000);
                 return;
             } else {
                 show_results(json);

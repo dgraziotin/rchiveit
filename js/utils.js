@@ -30,6 +30,8 @@ function please_wait(active) {
     }
 }
 
-function scroll_to(id){
-    $('body, html').animate({ scrollTop: $(id).offset().top}, 1500);    
+function scroll_to(id, speed){
+    if (!speed)
+        speed = 1500;
+    $('body, html').animate({ scrollTop: $(id).offset().top}, speed);    
 }
