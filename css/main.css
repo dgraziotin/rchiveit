@@ -58,6 +58,12 @@ div.mayhide
 .permission {
 	color: #555555;
 }
+
+h4.permission strong {
+	text-transform: uppercase;
+	font-size:1.2em;
+}
+
 div.conditions {
 	padding-top:15px;
 }
