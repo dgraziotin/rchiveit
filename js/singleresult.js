@@ -22,7 +22,7 @@ function show_permission(eprint, permission){
 function show_conditions(conditions){
     var conditions_html = '';
     for (condition in conditions){
-        var condition_html = '<h4 class="icon-check">'+conditions[condition]+'</h4>';
+        var condition_html = '<h4>'+conditions[condition]+'</h4>';
         conditions_html += condition_html;
     }
     $('div.conditions').append(conditions_html);

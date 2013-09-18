@@ -64,8 +64,9 @@ h4.permission strong {
 	font-size:1.2em;
 }
 
-div.conditions {
-	padding-top:15px;
+div#journalconditions, div#journalmorerights, div.journalcopyrightlinks h4, div#journaldisclaimer {
+	text-align: center;
+	padding:auto;
 }
 
 div.conditions h4{
