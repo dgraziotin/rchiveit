@@ -26,7 +26,7 @@ function show_conditions(conditions){
         conditions_html += condition_html;
     }
     $('div.conditions').append(conditions_html);
-    $('div#additionalinfo').show();
+    $('div.additionalinfo').show();
 }
 
 function show_copyrightlinks(copyrightlinks){
