@@ -10,7 +10,6 @@ function show_results(json) {
     col_size = 3;
 
     $('div.row.row-journals').remove();
-    
     clean_results();
 
     var journals = shuffle(json.journals.journal);
@@ -18,12 +17,14 @@ function show_results(json) {
     show_message('Multiple results found. Here are some of them. Select the appropriate one below (if any). <br/>' +
         'Otherwise, please disambiguate by either giving the full name or by inputting the ISSN number', 'info');
 
-    $('#results').append('<div class="row row-journals"></div>');
-
     for (var i = 0; i < results_count; i++) {
         var journal_name = journals[i].jtitle;
         var journal_publisher = journals[i].romeopub;
         var journal_issn = journals[i].issn;
+
+        if (i == 0){
+            $('#results').append('<div class="row row-journals"></div>');
+        }
 
         if (i == 4 || i == 8 || i == 12) {
             $('<div class="row row-journals"></div>').insertAfter('div#results>div.row.row-journals:last-child');
@@ -33,7 +34,7 @@ function show_results(json) {
             '<h3>' + journal_name + '</h3>' +
             '<h4>' + journal_publisher + '</h4></div>');
     }
-
+    /*
     boxes = $('div.row-journals');
     var maxHeight = Math.max.apply(
         Math, boxes.map(function() {
@@ -41,6 +42,7 @@ function show_results(json) {
         }).get()
     );
     boxes.height(maxHeight);
+    */
 
     $('.row-journals').show();
     $('#results').fadeIn();

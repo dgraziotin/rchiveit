@@ -9,7 +9,7 @@ function show_message(message, type) {
     if (!type) {
         type = 'info';
     }
-    $('<div class="alert alert-' + type + '">' + message + '</div>').css('display', 'none').prependTo('div.panel-body.pre-results').fadeIn();
+    $('<div class="alert alert-' + type + '" style="margin-top:15px;">' + message + '</div>').css('display', 'none').appendTo('div.page-header').fadeIn();
 }
 
 function hide_messages(){
