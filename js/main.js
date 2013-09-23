@@ -1,11 +1,12 @@
 $(document).ready(function() {
-
+    if ($(window).width() >= 1068) {
     $('#share').share({
         networks: ['twitter','facebook','googleplus','linkedin','reddit','tumblr','pinterest','stumbleupon','email'],
         orientation: 'vertical',
         urlToShare: 'http://rchive.it',
         affix: 'left center'
     });
+    }
 
     jQuery('span.email').each(function(i) {
         var text = jQuery(this).text();
