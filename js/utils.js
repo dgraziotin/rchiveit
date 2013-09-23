@@ -35,3 +35,20 @@ function scroll_to(id, speed){
         speed = 1500;
     $('body, html').animate({ scrollTop: $(id).offset().top}, speed);    
 }
+
+//http://neilang.com/entries/validate-an-issn-using-javascript/
+function is_valid_issn (issn) { 
+  issn = issn.replace(/[^\dX]/gi, ''); 
+  if(issn.length != 8){ 
+    return false; 
+  } 
+  var chars = issn.split(''); 
+  if(chars[7].toUpperCase() == 'X'){ 
+    chars[7] = 10; 
+  } 
+  var sum = 0; 
+  for (var i = 0; i < chars.length; i++) { 
+    sum += ((8-i) * parseInt(chars[i])); 
+  }; 
+  return ((sum % 11) == 0); 
+}

@@ -19,15 +19,29 @@ $(document).ready(function() {
             return;
         please_wait(true);
         clean_results();
-        var issn = this.id;
-        hide_messages();
-        $.get("/api.php", {
-            issn: issn
-        }, function(data) {
-            please_wait(false);
-            var json = $.xml2json(data);
-            show_result(json);
-        });
+
+        var disambiguer = encodeURI($.trim($(this).children("span").html()));;
+        var is_issn = is_valid_issn(disambiguer);
+        if (is_issn){
+            hide_messages();
+            $.get("/api.php", {
+                issn: disambiguer
+            }, function(data) {
+                please_wait(false);
+                var json = $.xml2json(data);
+                show_result(json);
+            });
+        }else{
+            hide_messages();
+            $.get("/api.php", {
+                journalname: disambiguer,
+                what: 'byid'
+            }, function(data) {
+                please_wait(false);
+                var json = $.xml2json(data);
+                show_result(json);
+            });
+        }
     });
 
     $('a.scroll').click(function(ev){
@@ -43,16 +57,24 @@ $(document).ready(function() {
         $('button#look').click();
     });
 
+    $('a.searchby').click(function(ev) {
+        ev.preventDefault();
+        $('button#searchbybutton').html($(this).html() + '<span class="caret"></span>');
+        $('input#searchbyinput').val(this.id); 
+    });
+
     $('button#look').click(function() {
         var journal_name = encodeURI($.trim($('#query').val()));
-        if (!journal_name || $.active)
+        var what = encodeURI($.trim($('#searchbyinput').val()));
+        if (!journal_name || !what || $.active)
             return;
         $('div.pre-pre-results').css('visibility','visible');
         please_wait(true);
         hide_messages();
         clean_results();
         $.get("/api.php", {
-            journalname: journal_name
+            journalname: journal_name,
+            what: what
         }, function(data) {
             please_wait(false);
             var json = $.xml2json(data);
@@ -81,7 +103,12 @@ $(document).ready(function() {
         if ($.active)
             return;
         $('#query').val($(this).text());
+        $('#searchbyinput').val('byjournal');
         $('button#look').click();
+    });
+
+    $('body').bind('beforeunload',function(){
+        $('form').reset();
     });
 
 });

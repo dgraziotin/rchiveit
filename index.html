@@ -82,7 +82,17 @@
                         <div class="form-group">
                             <label class="control-label">Lookup the Journal / Conference Proceedings Name</label>
                             <div class="input-group">
-                                <input class="form-control" type="text" id="query" name="jornalname">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="searchbybutton">
+                                        Journal Name<span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" id="byjournal" class="searchby">Journal Name</a></li>
+                                        <li><a href="#" id="bypublisher" class="searchby">Publisher Name</a></li>
+                                    </ul>
+                                </div>
+                                <input type="hidden" name="what" id="searchbyinput" value="byjournal">
+                                <input type="text" class="form-control" id="query" name="journalname">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button" id="look">Search</button>
                                 </span>

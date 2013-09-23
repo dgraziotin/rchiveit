@@ -50,14 +50,31 @@ function show_info(conditions, copyrightlinks){
 function show_result(json){
     clean_results();
     try{
-        var journal = json.journals.journal;
-        var journal_name = journal.jtitle;
-        var journal_publisher = journal.romeopub;
-        var journal_issn = journal.issn;
+        var journal_name;
+        var journal_publisher;
+        var journal_issn;
+        var copyrightlinkurl;
 
-        $('#journalname').text(journal_name);
-        $('#journalpublisher').text('Publisher: ' + journal_publisher);
-        $('#journalissn').text('ISSN: ' + journal_issn);
+        if (typeof json.journals.journal == 'undefined'){
+            journal_name = journal_publisher = journal_issn = json.publishers.publisher.name;
+            $('#journalname').text(journal_name);
+            $('#journalpublisher').text('Publisher\'s default policies.');
+            $('#journalissn').text('Individual journals\' rights may be different.');
+            copyrightlinkurl = 'http://www.sherpa.ac.uk/romeo/pub/'+ json.publishers.publisher.id +'/';
+        }else{
+            var journal = json.journals.journal;
+            var journal_name = journal.jtitle;
+            var journal_publisher = journal.romeopub;
+            var journal_issn = journal.issn;
+
+            $('#journalname').text(journal_name);
+            $('#journalpublisher').text('Publisher: ' + journal_publisher);
+            $('#journalissn').text('ISSN: ' + journal_issn);
+
+            copyrightlinkurl = 'http://www.sherpa.ac.uk/romeo/issn/'+ journal_issn +'/';
+        }
+
+
 
         var publisher = json.publishers.publisher;
 
@@ -72,10 +89,9 @@ function show_result(json){
         var conditions = json.publishers.publisher.conditions.condition;
         var copyrightlinks = json.publishers.publisher.copyrightlinks.copyrightlink
 
-        
         var journal_sherparomeo = {
             copyrightlinktext : 'SHERPA/RoMEO entry',
-            copyrightlinkurl : 'http://www.sherpa.ac.uk/romeo/issn/'+ journal_issn +'/',
+            copyrightlinkurl : copyrightlinkurl
         };
 
         if(!$.isArray(copyrightlinks)){

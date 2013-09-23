@@ -12,15 +12,31 @@ function show_results(json) {
     $('div.row.row-journals').remove();
     clean_results();
 
-    var journals = shuffle(json.journals.journal);
+    var journals;
+    if (typeof json.journals.journal == 'undefined')
+        journals = shuffle(json.publishers.publisher);
+    else
+        journals = shuffle(json.journals.journal);
 
-    show_message('Multiple results found. Here are some of them. Select the appropriate one below (if any). <br/>' +
-        'Otherwise, please disambiguate by either giving the full name or by inputting the ISSN number', 'info');
+    show_message('Multiple results found. Here are some of them. Select the appropriate one below (if any)', 'info');
 
     for (var i = 0; i < results_count; i++) {
-        var journal_name = journals[i].jtitle;
-        var journal_publisher = journals[i].romeopub;
-        var journal_issn = journals[i].issn;
+        var journal_name;
+        var journal_publisher;
+        var journal_issn;
+
+        if (typeof journals[i].jtitle == 'undefined'){
+            journal_name = journal_publisher = journals[i].name;
+            if (journals[i].alias != '')
+                journal_publisher = journals[i].alias;
+            journal_issn = journals[i].id;
+
+        }else{
+            journal_name = journals[i].jtitle;
+            journal_publisher = journals[i].romeopub;
+            journal_issn =  journals[i].issn;   
+        }
+        
 
         if (i == 0){
             $('#results').append('<div class="row row-journals"></div>');
@@ -32,17 +48,8 @@ function show_results(json) {
 
         $('div#results>div.row.row-journals:last-child').append('<div class="journal col-md-' + col_size + '" id=' + journal_issn + '>' +
             '<h3>' + journal_name + '</h3>' +
-            '<h4>' + journal_publisher + '</h4></div>');
+            '<h4>' + journal_publisher + '</h4><span style="display:none">'+ journal_issn +'</span></div>');
     }
-    /*
-    boxes = $('div.row-journals');
-    var maxHeight = Math.max.apply(
-        Math, boxes.map(function() {
-            return $(this).height();
-        }).get()
-    );
-    boxes.height(maxHeight);
-    */
 
     $('.row-journals').show();
     $('#results').fadeIn();
