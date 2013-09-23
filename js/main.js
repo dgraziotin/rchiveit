@@ -84,7 +84,14 @@ $(document).ready(function() {
             if (results_count == 0) {
                 $('div.row.row-journals').remove();
                 $('#results').append('<div class="row"></div>');
-                show_message('No results found.');
+
+                if (what == 'byjournal')
+                    show_message('No results found. Consider searching again: ' +
+                    '<ol><li>By journal name, with the ISSN number only.</li>' +
+                    '<li>By publisher name</li></ol>');
+                else
+                    show_message('No results found.');
+
                 scroll_to('#examples',2000);
                 return;
             } else if (results_count == 1) {
@@ -93,6 +100,14 @@ $(document).ready(function() {
                 scroll_to('#examples',2000);
                 return;
             } else {
+                if (what == 'byjournal')
+                    show_message('Multiple results found. Here are some of them. Select the appropriate one below (if any).' + 
+                        'Otherwise, consider searching again: ' +
+                        '<ol><li>By journal name, refining the search term.</li>' +
+                        '<li>By journal name, with the ISSN number only.</li>' +
+                        '<li>By publisher name</li></ol>', 'info');
+                else 
+                    show_message('Multiple results found. Here are some of them. Select the appropriate one below (if any)', 'info');
                 show_results(json);
                 scroll_to('#examples',2000);
             }

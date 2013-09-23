@@ -18,8 +18,6 @@ function show_results(json) {
     else
         journals = shuffle(json.journals.journal);
 
-    show_message('Multiple results found. Here are some of them. Select the appropriate one below (if any)', 'info');
-
     for (var i = 0; i < results_count; i++) {
         var journal_name;
         var journal_publisher;
