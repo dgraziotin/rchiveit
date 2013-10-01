@@ -80,15 +80,19 @@
                     <!-- <p class="lead"></p> -->
                     <form action="#" id="sherparomeo" class="form-search">
                         <div class="form-group">
-                            <label class="control-label">Lookup the Journal / Conference Proceedings Name</label>
+                            <label class="control-label">
+                                Let's find out.
+                                Search by publication name, <abbr title="The name of the publishing company of a journal. Use this searching digital publications of conference papers, e.g., ACM and IEEE">publisher name</abbr>, or 
+                                <abbr title="International Standard Serial Number.  An 8-digit number used to identify a print or electronic periodical publication. Look for it in the About section of the journal website.">ISSN</abbr></label>
                             <div class="input-group">
                                 <div class="input-group-btn">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="searchbybutton">
-                                        Journal Name<span class="caret"></span>
+                                        Publication Name<span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#" id="byjournal" class="searchby">Journal Name</a></li>
+                                        <li><a href="#" id="byjournal" class="searchby">Publication Name</a></li>
                                         <li><a href="#" id="bypublisher" class="searchby">Publisher Name</a></li>
+                                        <li><a href="#" id="byissn" class="searchby">ISSN</a></li>
                                     </ul>
                                 </div>
                                 <input type="hidden" name="what" id="searchbyinput" value="byjournal">

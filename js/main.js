@@ -25,7 +25,8 @@ $(document).ready(function() {
         if (is_issn){
             hide_messages();
             $.get("/api.php", {
-                issn: disambiguer
+                journalname: disambiguer,
+                what: 'byissn',
             }, function(data) {
                 please_wait(false);
                 var json = $.xml2json(data);
@@ -35,7 +36,7 @@ $(document).ready(function() {
             hide_messages();
             $.get("/api.php", {
                 journalname: disambiguer,
-                what: 'byid'
+                what: 'byid',
             }, function(data) {
                 please_wait(false);
                 var json = $.xml2json(data);
@@ -84,13 +85,27 @@ $(document).ready(function() {
             if (results_count == 0) {
                 $('div.row.row-journals').remove();
                 $('#results').append('<div class="row"></div>');
-
-                if (what == 'byjournal')
-                    show_message('No results found. Consider searching again: ' +
-                    '<ol><li>By journal name, with the ISSN number only.</li>' +
-                    '<li>By publisher name</li></ol>');
-                else
-                    show_message('No results found.');
+                var message = 'No results found.';
+                switch(what){
+                    case 'byissn':
+                        message = 'No results found. Please double-check the ISSN number (1234-5678).<br/>' +
+                            'Consider searching by publication name or publisher name';
+                    break;
+                    case 'byid':
+                        message = 'No results found. This case should not happen. Please contact the developer.';  
+                    break;
+                    case 'byjournal':
+                        message = 'No results found. Please double-check the publication name. <br/>' +
+                            'Consider searching by publisher name or ISSN number (1234-5678)';
+                    break;
+                    case 'bypublisher':
+                        message = 'No results found. Please double-check the publisher name. <br/>' +
+                            'Consider searching by publication name or ISSN number (1234-5678)';        
+                    break;
+                    default:
+                        message = 'No results found.';
+                }
+                show_message(message, 'info');
 
                 scroll_to('#examples',2000);
                 return;
@@ -100,14 +115,30 @@ $(document).ready(function() {
                 scroll_to('#examples',2000);
                 return;
             } else {
-                if (what == 'byjournal')
-                    show_message('Multiple results found. Here are some of them. Select the appropriate one below (if any).' + 
-                        'Otherwise, consider searching again: ' +
-                        '<ol><li>By journal name, refining the search term.</li>' +
-                        '<li>By journal name, with the ISSN number only.</li>' +
-                        '<li>By publisher name</li></ol>', 'info');
-                else 
-                    show_message('Multiple results found. Here are some of them. Select the appropriate one below (if any)', 'info');
+                var message = 'No results found.';
+                switch(what){
+                    case 'byissn':
+                        message = 'No results found. This case should not happen. Please contact the developer.';  
+                    break;
+                    case 'byid':
+                        message = 'No results found. This case should not happen. Please contact the developer.';  
+                    break;
+                    case 'byjournal':
+                        message = 'Multiple results found. Here are some of them. <br/>' + 
+                            '<strong>Not what you were looking for?</strong> Consider searching again: ' +
+                            '<ol><li>By ISSN number</li>' +
+                            '<li>By publisher name</li></ol>';
+                    break;
+                    case 'bypublisher':
+                        message = 'Multiple results found. Here are some of them. <br/>' + 
+                            '<strong>Not what you were looking for?</strong> Consider searching again: ' +
+                            '<ol><li>By ISSN number</li>' +
+                            '<li>By publication name</li></ol>';       
+                    break;
+                    default:
+                        message = 'No results found.';
+                }
+                show_message(message, 'info');
                 show_results(json);
                 scroll_to('#examples',2000);
             }
