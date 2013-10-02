@@ -1,4 +1,6 @@
 <?php
+header("Content-Type: application/xml; charset=utf-8");
+
 if( !isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) || !( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' ) )
     exit();
 
@@ -36,6 +38,7 @@ switch($bywhat){
 }
 
 $xml = file_get_contents($url);
-echo ($xml);
+$data = iconv("ISO-8859-1", "UTF-8", $xml);
+echo ($data);
 
 ?>
