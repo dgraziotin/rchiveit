@@ -1,3 +1,13 @@
+
+
+function ISSNFromLocationBar(){
+    var hash = window.location.hash.split('#')[1];
+    if (isValidISSN(hash)){
+        return hash;
+    }
+    return  null;
+}
+
 //+ Jonas Raoni Soares Silva
 //@ http://jsfromhell.com/array/shuffle [v1.0]
 function shuffle(o) { //v1.0

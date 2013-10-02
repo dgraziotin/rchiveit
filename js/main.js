@@ -12,6 +12,21 @@ $(document).ready(function () {
         });
     }
 
+    $(window).load(function() {
+        $(window).hashchange( function(){
+
+            // http://stackoverflow.com/questions/3008696/after-all-document-ready-have-run-is-there-and-event-for-that
+            var ISSNFromURL = ISSNFromLocationBar();
+            if (ISSNFromURL){
+                $('#query').val(ISSNFromURL);
+                $('input.search-by-what').val('by-issn');
+                $('button#search').click();
+            }
+
+        });
+        $(window).hashchange();
+    });
+
     jQuery('span.email').each(function () {
         var emailNoSpam = jQuery(this).text();
         var emailAddress = emailNoSpam.replace(' AT ', '@').replace(' DOT ', '.').replace(' DOT ', '.');
@@ -166,5 +181,8 @@ $(document).ready(function () {
     $('body').bind('beforeunload', function () {
         $('form').reset();
     });
+
+    $('body').on('click', 'input#permalink', function(){this.select();});
+
 
 });

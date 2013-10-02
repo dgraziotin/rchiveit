@@ -70,7 +70,9 @@ function showResult(json) {
             $('#journal-name').text(journalName);
             $('#journal-publisher').text('Publisher: ' + journalPublisher);
             $('#journal-issn').text('ISSN: ' + journalISSN);
-
+            var permalink = window.location.origin +'/#' + journalISSN;
+            window.location.hash = journalISSN;
+            $('#journal-permalink').html('Permalink to this entry: <input type="text" id="permalink" class="form-control" style="width:70%;display:inline" value="' +permalink +'">');
             copyrightLinkURL = 'http://www.sherpa.ac.uk/romeo/issn/' + journalISSN + '/';
         }
 
