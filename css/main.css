@@ -6,12 +6,12 @@ div.margin-top-md {
 	margin-top:20px; 
 }
 
-span.tryout {
+span.try-out {
 	margin:0 10px;
 	cursor: pointer;
 }
 
-form#sherparomeo{
+form#sherpa-romeo {
 	margin-top:30px;
 }
 
@@ -46,11 +46,11 @@ div#results{
 	padding:0 30px;
 }
 
-div#journalallows div h1 abbr{
+div#journal-allows div h1 abbr{
 	text-transform: uppercase;
 }
 
-div.mayhide
+div.may-hide
 {
 	display:none;
 }
@@ -64,7 +64,7 @@ h4.permission strong {
 	font-size:1.2em;
 }
 
-div#journalconditions, div#journalmorerights, div.journalcopyrightlinks h4, div#journaldisclaimer {
+div#journal-conditions, div#journal-more-rights, div.journal-copyright-links h4, div#journal-disclaimer {
 	text-align: center;
 	padding:auto;
 }

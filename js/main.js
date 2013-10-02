@@ -1,159 +1,169 @@
-$(document).ready(function() {
-    if ($(window).width() >= 1068) {
-    $('#share').share({
-        networks: ['twitter','facebook','googleplus','linkedin','reddit','tumblr','pinterest','stumbleupon','email'],
-        orientation: 'vertical',
-        urlToShare: 'http://rchive.it',
-        affix: 'left center'
-    });
+var SCROLL_TIME = 2000;
+var MIN_WIDTH_FOR_SHARE_WIDGET = 1068;
+
+$(document).ready(function () {
+
+    if ($(window).width() >= MIN_WIDTH_FOR_SHARE_WIDGET) {
+        $('#share').share({
+            networks: ['twitter', 'facebook', 'googleplus', 'linkedin', 'reddit', 'tumblr', 'pinterest', 'stumbleupon', 'email'],
+            orientation: 'vertical',
+            urlToShare: 'http://rchive.it',
+            affix: 'left center'
+        });
     }
 
-    jQuery('span.email').each(function(i) {
-        var text = jQuery(this).text();
-        var address = text.replace(' AT ', '@').replace(' DOT ', '.').replace(' DOT ', '.');
-        jQuery(this).text(address);
+    jQuery('span.email').each(function () {
+        var emailNoSpam = jQuery(this).text();
+        var emailAddress = emailNoSpam.replace(' AT ', '@').replace(' DOT ', '.').replace(' DOT ', '.');
+        jQuery(this).text(emailAddress);
     });
 
-    $('body').on('click', 'div.journal', function() {
+    $('body').on('click', 'div.journal', function () {
         if ($.active)
             return;
-        please_wait(true);
-        clean_results();
 
-        var disambiguer = encodeURI($.trim($(this).children("span").html()));;
-        var is_issn = is_valid_issn(disambiguer);
-        if (is_issn){
-            hide_messages();
+        pleaseWait(true);
+        cleanResults();
+
+        var disambiguer = encodeURI($.trim($(this).children("span").html()));
+
+        var isISSN = isValidISSN(disambiguer);
+        if (isISSN) {
+            hideAllMessages();
             $.get("/api.php", {
-                journalname: disambiguer,
-                what: 'byissn',
-            }, function(data) {
-                please_wait(false);
+                searchValue: disambiguer,
+                searchByWhat: 'by-issn'
+            }, function (data) {
+                pleaseWait(false);
                 var json = $.xml2json(data);
-                show_result(json);
+                showResult(json);
             });
-        }else{
-            hide_messages();
+        } else {
+            hideAllMessages();
             $.get("/api.php", {
-                journalname: disambiguer,
-                what: 'byid',
-            }, function(data) {
-                please_wait(false);
+                searchValue: disambiguer,
+                searchByWhat: 'by-id'
+            }, function (data) {
+                pleaseWait(false);
                 var json = $.xml2json(data);
-                show_result(json);
+                showResult(json);
             });
         }
     });
 
-    $('a.scroll').click(function(ev){
-        scroll_to($(this).attr('href'));
+    $('a.scroll').click(function (ev) {
+        scrollTo($(this).attr('href'));
         ev.preventDefault();
-    }); 
+    });
 
     $("#query").focus();
 
-    $('form#sherparomeo').submit(function(ev) {
-        clean_results();
+    $('form#sherpa-romeo').submit(function (ev) {
+        cleanResults();
         ev.preventDefault();
-        $('button#look').click();
+        $('button#search').click();
     });
 
-    $('a.searchby').click(function(ev) {
+    $('a.search-by-what').click(function (ev) {
         ev.preventDefault();
-        $('button#searchbybutton').html($(this).html() + '<span class="caret"></span>');
-        $('input#searchbyinput').val(this.id); 
+        $('button.search-by-what').html($(this).html() + '<span class="caret"></span>');
+        $('input.search-by-what').val(this.id);
     });
 
-    $('button#look').click(function() {
-        var journal_name = encodeURI($.trim($('#query').val()));
-        var what = encodeURI($.trim($('#searchbyinput').val()));
-        if (!journal_name || !what || $.active)
+    $('button#search').click(function () {
+        var searchValue = encodeURI($.trim($('#query').val()));
+        var searchByWhat = encodeURI($.trim($('input.search-by-what').val()));
+        if (!searchValue || !searchByWhat || $.active)
             return;
-        $('div.pre-pre-results').css('visibility','visible');
-        please_wait(true);
-        hide_messages();
-        clean_results();
+        $('div.pre-pre-results').css('visibility', 'visible');
+        pleaseWait(true);
+        hideAllMessages();
+        cleanResults();
         $.get("/api.php", {
-            journalname: journal_name,
-            what: what
-        }, function(data) {
-            please_wait(false);
+            searchValue: searchValue,
+            searchByWhat: searchByWhat
+        }, function (data) {
+            pleaseWait(false);
             var json = $.xml2json(data);
-            var col_size = 1;
-            var results_count = json.header.numhits;
+            var resultsCount = json.header.numhits;
 
-            if (results_count == 0) {
+            if (resultsCount == 0) {
                 $('div.row.row-journals').remove();
                 $('#results').append('<div class="row"></div>');
                 var message = 'No results found.';
-                switch(what){
-                    case 'byissn':
+                switch (searchByWhat) {
+                    case 'by-issn':
                         message = 'No results found. Please double-check the ISSN number (1234-5678).<br/>' +
                             'Consider searching by publication name or publisher name';
-                    break;
-                    case 'byid':
-                        message = 'No results found. This case should not happen. Please contact the developer.';  
-                    break;
-                    case 'byjournal':
+                        break;
+                    case 'by-id':
+                        message = 'No results found. This case should not happen. Please contact the developer.';
+                        break;
+                    case 'by-journal':
                         message = 'No results found. Please double-check the publication name. <br/>' +
                             'Consider searching by publisher name or ISSN number (1234-5678)';
-                    break;
-                    case 'bypublisher':
+                        break;
+                    case 'by-publisher':
                         message = 'No results found. Please double-check the publisher name. <br/>' +
-                            'Consider searching by publication name or ISSN number (1234-5678)';        
-                    break;
+                            'Consider searching by publication name or ISSN number (1234-5678)';
+                        break;
                     default:
                         message = 'No results found.';
                 }
-                show_message(message, 'info');
 
-                scroll_to('#examples',2000);
+                showMessage(message, 'info');
+                scrollTo('#examples', SCROLL_TIME);
+
                 return;
-            } else if (results_count == 1) {
+            } else if (resultsCount == 1) {
+
                 $('div.row.row-journals').remove();
-                show_result(json);
-                scroll_to('#examples',2000);
+                showResult(json);
+                scrollTo('#examples', SCROLL_TIME);
+
                 return;
             } else {
+
                 var message = 'No results found.';
-                switch(what){
-                    case 'byissn':
-                        message = 'No results found. This case should not happen. Please contact the developer.';  
-                    break;
-                    case 'byid':
-                        message = 'No results found. This case should not happen. Please contact the developer.';  
-                    break;
-                    case 'byjournal':
-                        message = 'Multiple results found. Here are some of them. <br/>' + 
+                switch (searchByWhat) {
+                    case 'by-issn':
+                        message = 'No results found. This case should not happen. Please contact the developer.';
+                        break;
+                    case 'by-id':
+                        message = 'No results found. This case should not happen. Please contact the developer.';
+                        break;
+                    case 'by-journal':
+                        message = 'Multiple results found. Here are some of them. <br/>' +
                             '<strong>Not what you were looking for?</strong> Consider searching again: ' +
                             '<ol><li>By ISSN number</li>' +
                             '<li>By publisher name</li></ol>';
-                    break;
-                    case 'bypublisher':
-                        message = 'Multiple results found. Here are some of them. <br/>' + 
+                        break;
+                    case 'by-publisher':
+                        message = 'Multiple results found. Here are some of them. <br/>' +
                             '<strong>Not what you were looking for?</strong> Consider searching again: ' +
                             '<ol><li>By ISSN number</li>' +
-                            '<li>By publication name</li></ol>';       
-                    break;
+                            '<li>By publication name</li></ol>';
+                        break;
                     default:
                         message = 'No results found.';
                 }
-                show_message(message, 'info');
-                show_results(json);
-                scroll_to('#examples',2000);
+
+                showMessage(message, 'info');
+                showResults(json);
+                scrollTo('#examples', SCROLL_TIME);
             }
         });
     });
 
-    $('button.tryout').click(function(){
+    $('button.try-out').click(function () {
         if ($.active)
             return;
         $('#query').val($(this).text());
-        $('#searchbyinput').val('byjournal');
-        $('button#look').click();
+        $('input.search-by-what').val('by-journal');
+        $('button#search').click();
     });
 
-    $('body').bind('beforeunload',function(){
+    $('body').bind('beforeunload', function () {
         $('form').reset();
     });
 

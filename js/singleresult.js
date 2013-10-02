@@ -1,4 +1,4 @@
-function restriction_icon(rule){
+function restrictionIconCSSClass(rule) {
     if (rule == "can")
         return "icon-smile";
     if (rule == "cannot")
@@ -8,71 +8,71 @@ function restriction_icon(rule){
     if (rule == "unclear")
         return "icon-question";
     return "icon-exclamation";
-};
-
-function show_permission(eprint, permission){
-    $('div#journalallows > div#'+eprint+' > h1').attr("class", restriction_icon(permission));
-    $('div#journalallows > div#'+eprint+' > h1').show();
-    $('div#journalallows > div#'+eprint+' > h4.permission.'+permission).show();
-    $('div#journalallows > div#'+eprint+' > p').show();
-    $('div#journalallows > div#'+eprint).show();
 }
 
-function show_conditions(conditions){
-    var conditions_html = '';
-    for (condition in conditions){
-        var condition_html = '<h4>'+conditions[condition]+'</h4>';
-        conditions_html += condition_html;
+function showPermission(eprint, permission) {
+    $('div#journal-allows > div#' + eprint + ' > h1').attr("class", restrictionIconCSSClass(permission));
+    $('div#journal-allows > div#' + eprint + ' > h1').show();
+    $('div#journal-allows > div#' + eprint + ' > h4.permission.' + permission).show();
+    $('div#journal-allows > div#' + eprint + ' > p').show();
+    $('div#journal-allows > div#' + eprint).show();
+}
+
+function showPublisherConditions(conditions) {
+    var conditionsHTML = '';
+    for (var condition in conditions) {
+        var conditionHTML = '<h4>' + conditions[condition] + '</h4>';
+        conditionsHTML += conditionHTML;
     }
-    $('div.conditions').append(conditions_html);
-    $('div.additionalinfo').show();
+    $('div.conditions').append(conditionsHTML);
+    $('div.additional-info').show();
 }
 
-function show_copyrightlinks(copyrightlinks){
-    for (link in copyrightlinks){
-        $('div.journalcopyrightlinks').append('<h4><a href="'+ copyrightlinks[link].copyrightlinkurl +'">'+ copyrightlinks[link].copyrightlinktext +'</a></h4>');    
+function showFurtherInfoLinks(copyrightlinks) {
+    for (var link in copyrightlinks) {
+        $('div.journal-copyright-links').append('<h4><a href="' + copyrightlinks[link].URL + '">' + copyrightlinks[link].text + '</a></h4>');
     }
-    $('div#journalmorerights').show();
+    $('div#journal-more-rights').show();
 
 }
 
-function show_disclaimer(){
-    $('div#journaldisclaimer').show();
+function showDisclaimer() {
+    $('div#journal-disclaimer').show();
 }
 
-function show_info(conditions, copyrightlinks){
-    show_conditions(conditions);
-    show_copyrightlinks(copyrightlinks);
-    show_disclaimer();
+function showInfo(conditions, copyrightlinks) {
+    showPublisherConditions(conditions);
+    showFurtherInfoLinks(copyrightlinks);
+    showDisclaimer();
 }
 
-function show_result(json){
-    clean_results();
-    try{
-        var journal_name;
-        var journal_publisher;
-        var journal_issn;
-        var copyrightlinkurl;
+function showResult(json) {
+    cleanResults();
+    try {
+        var journalName;
+        var journalPublisher;
+        var journalISSN;
+        var copyrightLinkURL;
 
-        if (typeof json.journals.journal == 'undefined'){
-            journal_name = journal_publisher = journal_issn = json.publishers.publisher.name;
-            $('#journalname').text(journal_name);
-            $('#journalpublisher').text('Publisher\'s default policies.');
-            $('#journalissn').text('Individual journals\' rights may be different.');
-            copyrightlinkurl = 'http://www.sherpa.ac.uk/romeo/pub/'+ json.publishers.publisher.id +'/';
-        }else{
+        if (typeof json.journals.journal == 'undefined') {
+            journalName = journalPublisher = journalISSN = json.publishers.publisher.name;
+            $('#journal-name').text(journalName);
+            $('#journal-publisher').text('Publisher\'s default policies.');
+            $('#journal-issn').text('Individual journals\' rights may be different.');
+            copyrightLinkURL = 'http://www.sherpa.ac.uk/romeo/pub/' + json.publishers.publisher.id + '/';
+        } else {
+
             var journal = json.journals.journal;
-            var journal_name = journal.jtitle;
-            var journal_publisher = journal.romeopub;
-            var journal_issn = journal.issn;
+            journalName = journal.jtitle;
+            journalPublisher = journal.romeopub;
+            journalISSN = journal.issn;
 
-            $('#journalname').text(journal_name);
-            $('#journalpublisher').text('Publisher: ' + journal_publisher);
-            $('#journalissn').text('ISSN: ' + journal_issn);
+            $('#journal-name').text(journalName);
+            $('#journal-publisher').text('Publisher: ' + journalPublisher);
+            $('#journal-issn').text('ISSN: ' + journalISSN);
 
-            copyrightlinkurl = 'http://www.sherpa.ac.uk/romeo/issn/'+ journal_issn +'/';
+            copyrightLinkURL = 'http://www.sherpa.ac.uk/romeo/issn/' + journalISSN + '/';
         }
-
 
 
         var publisher = json.publishers.publisher;
@@ -81,29 +81,29 @@ function show_result(json){
         var postprint = publisher.postprints.postarchiving;
         var pdfarchiving = publisher.pdfversion.pdfarchiving;
 
-        show_permission('preprint',preprint);
-        show_permission('postprint',postprint);
-        show_permission('pdfarchiving',pdfarchiving);
+        showPermission('preprint', preprint);
+        showPermission('postprint', postprint);
+        showPermission('pdfarchiving', pdfarchiving);
 
         var conditions = json.publishers.publisher.conditions.condition;
-        var copyrightlinks = json.publishers.publisher.copyrightlinks.copyrightlink
+        var copyrightlinks = json.publishers.publisher.copyrightlinks.copyrightlink;
 
-        var journal_sherparomeo = {
-            copyrightlinktext : 'SHERPA/RoMEO entry',
-            copyrightlinkurl : copyrightlinkurl
+        var journalSherpaRomeoLink = {
+            text: 'SHERPA/RoMEO entry',
+            URL: copyrightLinkURL
         };
 
-        if(!$.isArray(copyrightlinks)){
+        if (!$.isArray(copyrightlinks)) {
             copyrightlinks = [copyrightlinks];
         }
-        copyrightlinks.unshift(journal_sherparomeo);
-        show_info(conditions, copyrightlinks);
+        copyrightlinks.unshift(journalSherpaRomeoLink);
+        showInfo(conditions, copyrightlinks);
 
-        $('#journalheaders').show();
-        $('#journalallows').show();
+        $('#journal-headers').show();
+        $('#journal-allows').show();
         $('#results').fadeIn();
-    }catch(TypeError){
-        clean_results();
-        show_message('Although this record exists in SHERPA/RoMEO, it has not been evaluated yet. Please try again in a few weeks.','danger');
+    } catch (TypeError) {
+        cleanResults();
+        showMessage('Although this record exists in SHERPA/RoMEO, it has not been evaluated yet. Please try again in a few weeks.', 'danger');
     }
 }

@@ -1,16 +1,16 @@
-function show_results(json) {
+function showResults(json) {
 
-    var results_count = json.header.numhits;
+    var resultsCount = json.header.numhits;
 
     //TODO: think a clever way
-    if (results_count > 12) {
-        results_count = 12;
+    if (resultsCount > 12) {
+        resultsCount = 12;
     }
 
-    col_size = 3;
+    var colSize = 3;
 
     $('div.row.row-journals').remove();
-    clean_results();
+    cleanResults();
 
     var journals;
     if (typeof json.journals.journal == 'undefined')
@@ -18,25 +18,25 @@ function show_results(json) {
     else
         journals = shuffle(json.journals.journal);
 
-    for (var i = 0; i < results_count; i++) {
-        var journal_name;
-        var journal_publisher;
-        var journal_issn;
+    for (var i = 0; i < resultsCount; i++) {
+        var journalName;
+        var journalPublisher;
+        var journalISSN;
 
-        if (typeof journals[i].jtitle == 'undefined'){
-            journal_name = journal_publisher = journals[i].name;
+        if (typeof journals[i].jtitle == 'undefined') {
+            journalName = journalPublisher = journals[i].name;
             if (journals[i].alias != '')
-                journal_publisher = journals[i].alias;
-            journal_issn = journals[i].id;
+                journalPublisher = journals[i].alias;
+            journalISSN = journals[i].id;
 
-        }else{
-            journal_name = journals[i].jtitle;
-            journal_publisher = journals[i].romeopub;
-            journal_issn =  journals[i].issn;   
+        } else {
+            journalName = journals[i].jtitle;
+            journalPublisher = journals[i].romeopub;
+            journalISSN = journals[i].issn;
         }
-        
 
-        if (i == 0){
+
+        if (i == 0) {
             $('#results').append('<div class="row row-journals"></div>');
         }
 
@@ -44,9 +44,9 @@ function show_results(json) {
             $('<div class="row row-journals"></div>').insertAfter('div#results>div.row.row-journals:last-child');
         }
 
-        $('div#results>div.row.row-journals:last-child').append('<div class="journal col-md-' + col_size + '" id=' + journal_issn + '>' +
-            '<h3>' + journal_name + '</h3>' +
-            '<h4>' + journal_publisher + '</h4><span style="display:none">'+ journal_issn +'</span></div>');
+        $('div#results>div.row.row-journals:last-child').append('<div class="journal col-md-' + colSize + '" id=' + journalISSN + '>' +
+            '<h3>' + journalName + '</h3>' +
+            '<h4>' + journalPublisher + '</h4><span style="display:none">' + journalISSN + '</span></div>');
     }
 
     $('.row-journals').show();

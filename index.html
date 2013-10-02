@@ -59,8 +59,6 @@
                     </li>
                     <li><a href="#references" class="scroll">References</a>
                     </li>
-                    <li><a href="http://twitter.com/dgraziotin" class="scroll">@dgraziotin</a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -68,6 +66,7 @@
 
     <div class="container">
         <div class="page-header" id="banner">
+
             <div class="row">
                 <div class="col-md-12">
                     <h1>Can I
@@ -79,8 +78,8 @@
                             <abbr title="Digital (PDF) version of a journal/conference/workshop article">e-print</abbr>?
                         </a>
                     </h1>
-                    <!-- <p class="lead"></p> -->
-                    <form action="#" id="sherparomeo" class="form-search">
+
+                    <form action="#" id="sherpa-romeo" class="form-search">
                         <div class="form-group">
                             <label class="control-label">
                                 Let's find out.
@@ -88,23 +87,24 @@
                                 <abbr title="International Standard Serial Number.  An 8-digit number used to identify a print or electronic periodical publication. Look for it in the About section of the journal website.">ISSN</abbr></label>
                             <div class="input-group">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="searchbybutton">
+                                    <button type="button" class="search-by-what btn btn-default dropdown-toggle" data-toggle="dropdown">
                                         Publication Name<span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#" id="byjournal" class="searchby">Publication Name</a></li>
-                                        <li><a href="#" id="bypublisher" class="searchby">Publisher Name</a></li>
-                                        <li><a href="#" id="byissn" class="searchby">ISSN</a></li>
+                                        <li><a href="#" id="by-journal" class="search-by-what">Publication Name</a></li>
+                                        <li><a href="#" id="by-publisher" class="search-by-what">Publisher Name</a></li>
+                                        <li><a href="#" id="by-issn" class="search-by-what">ISSN</a></li>
                                     </ul>
                                 </div>
-                                <input type="hidden" name="what" id="searchbyinput" value="byjournal">
-                                <input type="text" class="form-control" id="query" name="journalname">
+                                <input type="hidden" class="search-by-what" name="search-by-what" value="by-journal">
+                                <input type="text" class="form-control" id="query" name="journal-name">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" id="look">Search</button>
+                                    <button class="btn btn-default" type="button" id="search">Search</button>
                                 </span>
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
             <div class="row">
@@ -112,12 +112,12 @@
                     Try one:
                     <div class="btn-toolbar" id="examples">
                         <div class="btn-group">
-                          <button type="button" class="btn btn-default tryout">Lecture Notes in Computer Science</button>
-                          <button type="button" class="btn btn-default tryout">Journal of Systems and Software</button>
-                          <button type="button" class="btn btn-default tryout">MIS Quarterly</button>
-                          <button type="button" class="btn btn-default tryout">Journal of Open Research Software</button>
-                          <button type="button" class="btn btn-default tryout">Software Engineering Notes</button>
-                          <button type="button" class="btn btn-default tryout">PeerJ</button>
+                          <button type="button" class="btn btn-default try-out">Lecture Notes in Computer Science</button>
+                          <button type="button" class="btn btn-default try-out">Journal of Systems and Software</button>
+                          <button type="button" class="btn btn-default try-out">MIS Quarterly</button>
+                          <button type="button" class="btn btn-default try-out">Journal of Open Research Software</button>
+                          <button type="button" class="btn btn-default try-out">Software Engineering Notes</button>
+                          <button type="button" class="btn btn-default try-out">PeerJ</button>
                         </div>
                     </div>
                 </div>
@@ -125,92 +125,92 @@
         </div>
         <div class="panel panel-default pre-pre-results">
             <div class="panel-body pre-results">
-                <div class="row mayhide" id="results">
+                <div class="row may-hide" id="results">
                     <!-- headers -->
-                    <div class="row mayhide" id="journalheaders">
+                    <div class="row may-hide" id="journal-headers">
                         <div class="col-md-8 col-md-offset-2 text-center">
-                            <h1 id="journalname" class="mayempty"></h1>
-                            <h3 id="journalpublisher" class="mayempty"></h3>
-                            <h4 id="journalissn" class="mayempty"></h4>
+                            <h1 id="journal-name" class="may-empty"></h1>
+                            <h3 id="journal-publisher" class="may-empty"></h3>
+                            <h4 id="journal-issn" class="may-empty"></h4>
                         </div>
                     </div>
 
                     <!-- permissions -->
-                    <div class="row margin-top-lg mayhide" id="journalallows">
+                    <div class="row margin-top-lg may-hide" id="journal-allows">
                         <div class="col-md-4" id="preprint">
-                            <h1 class="permission icon-thumbs-up-alt mayhide">
+                            <h1 class="permission icon-thumbs-up-alt may-hide">
                                 <abbr title="Basically, the LaTeX‎ / Word generated PDF of your paper that is ready to be submitted (even for major/minor revision), no matter what template you use">Preprint</abbr>
                             </h1>
-                            <h4 class="permission can mayhide">You
+                            <h4 class="permission can may-hide">You
                                 <strong>are allowed</strong><br/>to publish your pre-referee (<em>before peer-review</em>) version of your paper on your website, on an institutional archive, and <em>probably</em> on public repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
-                            <h4 class="permission restricted mayhide">You
+                            <h4 class="permission restricted may-hide">You
                                 <strong>may be allowed</strong><br/>to publish your pre-referee (<em>before peer-review</em>) version of your paper on your website, on an institutional archive, and on public repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
-                            <h4 class="permission cannot mayhide">You
+                            <h4 class="permission cannot may-hide">You
                                 <strong>are not allowed</strong><br/>to publish your pre-referee (<em>before peer-review</em>) version of your paper on your website, on an institutional archive, and on public repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
-                            <h4 class="permission unclear mayhide">It is
+                            <h4 class="permission unclear may-hide">It is
                                 <strong>unclear</strong><br/>if you can publish your pre-referee (<em>before peer-review</em>) version of your paper on your website, on an institutional archive, and on public repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
-                             <h4 class="permission unknown mayhide">It is
+                             <h4 class="permission unknown may-hide">It is
                                 <strong>unknown</strong><br/>if you can publish your pre-referee (<em>before peer-review</em>) version of your paper on your website, on an institutional archive, and on public repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
-                            <p class="permission conditions mayhide">Some conditions below may apply. <br/> Please review them.</p>
+                            <p class="permission conditions may-hide">Some conditions below may apply. <br/> Please review them.</p>
                         </div>
-                        <div class="col-md-4 mayhide" id="postprint">
-                            <h1 class="icon-thumbs-up-alt mayhide">
+                        <div class="col-md-4 may-hide" id="postprint">
+                            <h1 class="icon-thumbs-up-alt may-hide">
                                 <abbr title="Basically, the LaTeX‎ / Word generated PDF of the accepted paper, no matter what template you use">Postprint</abbr>
                             </h1>
-                            <h4 class="permission can mayhide">You
+                            <h4 class="permission can may-hide">You
                                 <strong>are allowed</strong><br/>to publish your post-referee (<em>after peer-review and/or editorial acceptance</em>) version of your paper on your website, on an institutional archive, and <em>probably</em> on public repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
-                            <h4 class="permission restricted mayhide">You
+                            <h4 class="permission restricted may-hide">You
                                 <strong>may be allowed</strong><br/>to publish your post-referee (<em>after peer-review and/or editorial acceptance</em>) version of your paper on your website, on an institutional archive, and on public repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
-                            <h4 class="permission cannot mayhide">You
+                            <h4 class="permission cannot may-hide">You
                                 <strong>are not allowed</strong><br/>to publish your post-referee (<em>after peer-review and/or editorial acceptance</em>) version of your paper on your website, on an institutional archive, and on public repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
-                            <h4 class="permission unclear mayhide">It is
+                            <h4 class="permission unclear may-hide">It is
                                 <strong>unclear</strong><br/>if you can publish your post-referee (<em>after peer-review and/or editorial acceptance</em>) version of your paper on your website, on an institutional archive, and on public repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
-                            <h4 class="permission unknown mayhide">It is
+                            <h4 class="permission unknown may-hide">It is
                                 <strong>unknown</strong><br/>if you can publish your post-referee (<em>after peer-review and/or editorial acceptance</em>) version of your paper on your website, on an institutional archive, and on public repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
-                            <p class="permission conditions mayhide">Some conditions below may apply. <br/> Please review them.</p>
+                            <p class="permission conditions may-hide">Some conditions below may apply. <br/> Please review them.</p>
                         </div>
-                        <div class="col-md-4 mayhide" id="pdfarchiving">
-                            <h1 class="icon-thumbs-up-alt mayhide">
+                        <div class="col-md-4 may-hide" id="pdfarchiving">
+                            <h1 class="icon-thumbs-up-alt may-hide">
                                 <abbr title="The published PDF of your paper, as it is when you download it from the journal Website">Publisher PDF</abbr>
                             </h1>
-                            <h4 class="permission can mayhide">You
+                            <h4 class="permission can may-hide">You
                                 <strong>are allowed</strong><br/>to publish the publisher PDF (the published article) of your paper on your website, on an institutional archive, and <em>probably</em> on public repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
-                            <h4 class="permission restricted mayhide">You
+                            <h4 class="permission restricted may-hide">You
                                 <strong>may be allowed</strong><br/>to publish the publisher PDF (the published article) of your paper on your website, on an institutional archive, and on public repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
-                            <h4 class="permission cannot mayhide">You
+                            <h4 class="permission cannot may-hide">You
                                 <strong>are not allowed</strong><br/>to publish the publisher PDF (the published article) of your paper on your website, on an institutional archive, and on public repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
-                            <h4 class="permission unclear mayhide">It is
+                            <h4 class="permission unclear may-hide">It is
                                 <strong>unclear</strong><br/>if you can publish the publisher PDF (the published article) of your paper on your website, on an institutional archive, and on public repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
-                            <h4 class="permission unknown mayhide">It is
+                            <h4 class="permission unknown may-hide">It is
                                 <strong>unknown</strong><br/>if you can publish the publisher PDF (the published article) of your paper on your website, on an institutional archive, and on public repositories like <a href="http://arxiv.org">arXiv</a>, <a href="http://figshare.com">figshare</a>, and <a href="http://peerj.com/preprints">PeerJ PrePrints</a>.</h4>
-                            <p class="permission conditions mayhide">Some conditions below may apply. <br/> Please review them.</p>
+                            <p class="permission conditions may-hide">Some conditions below may apply. <br/> Please review them.</p>
                         </div>
                     </div>
 
                     <!-- conditions -->
-                    <div class="row margin-top-lg mayhide additionalinfo">
-                            <div class="col-md-8 col-md-offset-2" id="journalconditions">
+                    <div class="row margin-top-lg may-hide additional-info">
+                            <div class="col-md-8 col-md-offset-2" id="journal-conditions">
                             <h1 class="icon-list-ul">
                                 <abbr title="This section contains possible conditions under which the permissions are allowed or not. It may also contains useful suggestions.">Under the following conditions</abbr>
                             </h1>
-                            <div class="conditions mayempty">
+                            <div class="conditions may-empty">
                             </div>
                         </div>    
                     </div>
-                    <div class="row margin-top-lg mayhide additionalinfo">
+                    <div class="row margin-top-lg may-hide additional-info">
                             <!-- more info -->
-                            <div class="col-md-8 col-md-offset-2" id="journalmorerights">
+                            <div class="col-md-8 col-md-offset-2" id="journal-more-rights">
                                 <h1 class="icon-file-text-alt">
                                     <abbr title="Check these sources in order to be sure of the information displayed in this website">Further information</abbr>
                                 </h1>
-                                <div class="journalcopyrightlinks mayempty">
+                                <div class="journal-copyright-links may-empty">
 
                                 </div>
                             </div>
                     </div>
-                    <div class="row margin-top-lg mayhide additionalinfo">
+                    <div class="row margin-top-lg may-hide additional-info">
                             <!-- disclaimer -->
-                            <div class="col-md-8 col-md-offset-2" id="journaldisclaimer">
+                            <div class="col-md-8 col-md-offset-2" id="journal-disclaimer">
                                 <h1 class="icon-info">
                                     <abbr title="Start with this website. End with your own tools.">Disclaimer</abbr>
                                 </h1>
@@ -388,7 +388,7 @@
     <script src="/bower_components/jquery/jquery.xml2json.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/assets/js/bootswatch.js"></script>
-    <script src="/js/jquery.share.js"></script>
+    <script src="/bower_components/jquery/jquery.share.js"></script>
     <script src="/js/utils.js"></script>
     <script src="/js/multipleresults.js"></script>
     <script src="/js/singleresult.js"></script>
