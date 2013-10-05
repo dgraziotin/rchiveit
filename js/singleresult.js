@@ -29,8 +29,9 @@ function showPublisherConditions(conditions) {
 }
 
 function showFurtherInfoLinks(copyrightlinks) {
-    for (var link in copyrightlinks) {
-        $('div.journal-copyright-links').append('<h4><a href="' + copyrightlinks[link].URL + '">' + copyrightlinks[link].text + '</a></h4>');
+    var link;
+    for (link in copyrightlinks) {
+        $('div.journal-copyright-links').append('<h4><a href="' + copyrightlinks[link].copyrightlinkurl + '">' + copyrightlinks[link].copyrightlinktext + '</a></h4>');
     }
     $('div#journal-more-rights').show();
 
@@ -91,8 +92,8 @@ function showResult(json) {
         var copyrightlinks = json.publishers.publisher.copyrightlinks.copyrightlink;
 
         var journalSherpaRomeoLink = {
-            text: 'SHERPA/RoMEO entry',
-            URL: copyrightLinkURL
+            copyrightlinktext: 'SHERPA/RoMEO entry',
+            copyrightlinkurl: copyrightLinkURL
         };
 
         if (!$.isArray(copyrightlinks)) {
