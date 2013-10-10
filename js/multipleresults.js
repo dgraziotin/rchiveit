@@ -1,5 +1,5 @@
 function showResults(json) {
-
+    
     var resultsCount = json.header.numhits;
 
     //TODO: think a clever way

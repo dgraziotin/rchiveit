@@ -19,7 +19,7 @@ $(document).ready(function () {
             var ISSNFromURL = ISSNFromLocationBar();
             if (ISSNFromURL){
                 $('#query').val(ISSNFromURL);
-                $('input.search-by-what').val('by-issn');
+                $('select#search-by-what').val('by-issn');
                 $('button#search').click();
             }
 
@@ -79,21 +79,26 @@ $(document).ready(function () {
         $('button#search').click();
     });
 
-    $('a.search-by-what').click(function (ev) {
-        ev.preventDefault();
-        $('button.search-by-what').html($(this).html() + '<span class="caret"></span>');
-        $('input.search-by-what').val(this.id);
-    });
-
     $('button#search').click(function () {
+
         var searchValue = encodeURI($.trim($('#query').val()));
-        var searchByWhat = encodeURI($.trim($('input.search-by-what').val()));
+        var searchByWhat = encodeURI($.trim($('#search-by-what').val()));
+
         if (!searchValue || !searchByWhat || $.active)
             return;
+
+        if (!isValidISSN(searchValue) && searchByWhat == 'by-issn'){
+            $('#search-by-what').val('by-journal');
+            searchByWhat = 'by-journal';
+        }
+
+
         $('div.pre-pre-results').css('visibility', 'visible');
         pleaseWait(true);
         hideAllMessages();
         cleanResults();
+
+        
         $.get("/api.php", {
             searchValue: searchValue,
             searchByWhat: searchByWhat
@@ -174,7 +179,7 @@ $(document).ready(function () {
         if ($.active)
             return;
         $('#query').val($(this).text());
-        $('input.search-by-what').val('by-journal');
+        $('#search-by-what').val('by-journal');
         $('button#search').click();
     });
 

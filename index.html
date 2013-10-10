@@ -78,33 +78,41 @@
                             <abbr title="Digital (PDF) version of a journal/conference/workshop article">e-print</abbr>?
                         </a>
                     </h1>
-
-                    <form action="#" id="sherpa-romeo" class="form-search">
+            </div>
+        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>
+                        Let's find out. Search by publication name, 
+                        <abbr title="The name of the publishing company of a journal. Use this searching digital publications of conference papers, e.g., ACM and IEEE">
+                            publisher name
+                        </abbr>
+                        , or 
+                        <abbr title="International Standard Serial Number.  An 8-digit number used to identify a print or electronic periodical publication. Look for it in the About section of the journal website.">
+                            ISSN
+                        </abbr>  
+                    </h3> 
+                </div>    
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="#" id="sherpa-romeo" class="form-horizontal">
                         <div class="form-group">
-                            <label class="control-label">
-                                Let's find out.
-                                Search by publication name, <abbr title="The name of the publishing company of a journal. Use this searching digital publications of conference papers, e.g., ACM and IEEE">publisher name</abbr>, or 
-                                <abbr title="International Standard Serial Number.  An 8-digit number used to identify a print or electronic periodical publication. Look for it in the About section of the journal website.">ISSN</abbr></label>
-                            <div class="input-group">
-                                <div class="input-group-btn">
-                                    <button type="button" class="search-by-what btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                        Publication Name<span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#" id="by-journal" class="search-by-what">Publication Name</a></li>
-                                        <li><a href="#" id="by-publisher" class="search-by-what">Publisher Name</a></li>
-                                        <li><a href="#" id="by-issn" class="search-by-what">ISSN</a></li>
-                                    </ul>
-                                </div>
-                                <input type="hidden" class="search-by-what" name="search-by-what" value="by-journal">
+                            <div class="col-md-2"> 
+                                <select name="search-by-what" id="search-by-what" class="form-control">
+                                    <option value="by-journal">Publication Name</option>
+                                    <option value="by-publisher">Publisher Name</option>
+                                    <option value="by-issn">ISSN</option>
+                                </select>  
+                            </div>
+                            <div class="input-group col-md-10"> 
                                 <input type="text" class="form-control" id="query" name="journal-name">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" id="search">Search</button>
+                                    <button class="btn btn-primary" type="button" id="search">Search <i class="icon-white icon-search"></i></button>
                                 </span>
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
             <div class="row">
