@@ -49,7 +49,9 @@ if (file_exists($cacheFile) && (time() - filectime($cacheFile)) < $cacheExpiresD
     // cache file does not exist or is older than $cacheExpiresDays
     // make API call and save it.
     $xml =  iconv("ISO-8859-1", "UTF-8", file_get_contents($url));
-    if($xml){
+    $check = simplexml_load_string($xml);
+    
+    if($xml && $check->header->numhits != 0){
         file_put_contents($cacheFile, $xml);
     }else{
         unlink($cacheFile);
