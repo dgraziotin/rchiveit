@@ -22,7 +22,7 @@ switch($searchByWhat){
 		$url = "http://www.sherpa.ac.uk/romeo/api29.php?versions=all&qtype=exact&ak=".$api_key."&issn=".$searchValue;
 	break;
 	case 'by-id':
-		$url = "http://www.sherpa.ac.uk/romeo/api29.php?versions=all&ak=".$api_key."&id=".$searchValue;
+		$url = "http://www.sherpa.ac.uk/romeo/api29.php?versions=all&qtype=exact&ak=".$api_key."&id=".$searchValue;
 	break;
 	case 'by-journal':
 		$url = "http://www.sherpa.ac.uk/romeo/api29.php?versions=all&qtype=contains&ak=".$api_key."&jtitle=".$searchValue;
@@ -41,6 +41,7 @@ $filename = $hash.".xml";
 $cacheFile = dirname( __FILE__ ).DIRECTORY_SEPARATOR."cache".DIRECTORY_SEPARATOR.$filename;
 $cacheExpiresDays = 7 * (24 * 60 * 60); // Expire Time (7 Days)
 
+//if (false){ //TODO use this for debugging
 if (file_exists($cacheFile) && (time() - filectime($cacheFile)) < $cacheExpiresDays ){
     // cache file exists and is not older than 5 days
     // serve it instead of doing an API call

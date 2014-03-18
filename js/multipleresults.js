@@ -3,9 +3,9 @@ function showResults(json) {
     var resultsCount = json.header.numhits;
 
     //TODO: think a clever way
-    if (resultsCount > 12) {
-        resultsCount = 12;
-    }
+    //if (resultsCount > 36) {
+    //    resultsCount = 36;
+    //}
 
     var colSize = 3;
 
@@ -13,10 +13,11 @@ function showResults(json) {
     cleanResults();
 
     var journals;
+
     if (typeof json.journals.journal == 'undefined')
-        journals = shuffle(json.publishers.publisher);
+        journals = json.publishers.publisher; // shuffle () removed
     else
-        journals = shuffle(json.journals.journal);
+        journals = json.journals.journal; // shuffle () removed
 
     for (var i = 0; i < resultsCount; i++) {
         var journalName;

@@ -48,6 +48,9 @@ function scrollTo(id, speed) {
 
 //http://neilang.com/entries/validate-an-issn-using-javascript/
 function isValidISSN(issn) {
+    if (!issn)
+        return false;
+    
     issn = issn.replace(/[^\dX]/gi, '');
     if (issn.length != 8) {
         return false;

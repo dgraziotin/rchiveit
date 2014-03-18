@@ -10,10 +10,24 @@ function restrictionIconCSSClass(rule) {
     return "icon-exclamation";
 }
 
-function showPermission(eprint, permission) {
-    $('div#journal-allows > div#' + eprint + ' > h1').attr("class", restrictionIconCSSClass(permission));
+function showPermission(eprint, archiving, restrictions) {
+    $('div#journal-allows > div#' + eprint + ' > h1').attr("class", restrictionIconCSSClass(archiving));
     $('div#journal-allows > div#' + eprint + ' > h1').show();
-    $('div#journal-allows > div#' + eprint + ' > h4.permission.' + permission).show();
+    $('div#journal-allows > div#' + eprint + ' > h4.permission.' + archiving).show();
+    if (restrictions){
+        var restrictions_html = '';
+        if ($.isArray(restrictions)){
+            jQuery.each( restrictions, function( i, val ) {
+                if (val)
+                    restrictions_html += '<li>' + val +'</li>'
+            });
+        }else{
+            if (restrictions)
+                restrictions_html = '<li>' + restrictions + '</li>';
+        }
+        if (restrictions_html)
+            $('div#journal-allows > div#' + eprint + ' > div.permission.' + archiving).show().html('<h4>Subject to the following restrictions</h4><ul class="restrictions">'+ restrictions_html +'</ul>');
+    }
     $('div#journal-allows > div#' + eprint + ' > p').show();
     $('div#journal-allows > div#' + eprint).show();
 }
@@ -77,16 +91,24 @@ function showResult(json) {
             copyrightLinkURL = 'http://www.sherpa.ac.uk/romeo/issn/' + journalISSN + '/';
         }
 
+        if ($.isArray(json.publishers.publisher))
+            json.publishers.publisher = json.publishers.publisher[0];
 
         var publisher = json.publishers.publisher;
 
         var preprint = publisher.preprints.prearchiving;
-        var postprint = publisher.postprints.postarchiving;
-        var pdfarchiving = publisher.pdfversion.pdfarchiving;
+        var preprint_restrictions = publisher.preprints.prerestrictions.prerestriction || null;
 
-        showPermission('preprint', preprint);
-        showPermission('postprint', postprint);
-        showPermission('pdfarchiving', pdfarchiving);
+        var postprint = publisher.postprints.postarchiving;
+        var postprint_restrictions = publisher.postprints.postrestrictions.postrestriction || null;
+
+        var pdfarchiving = publisher.pdfversion.pdfarchiving;
+        var pdfarchiving_restrictions = publisher.pdfversion.pdfrestrictions.pdfrestriction || null;
+
+
+        showPermission('preprint', preprint, preprint_restrictions);
+        showPermission('postprint', postprint, postprint_restrictions);
+        showPermission('pdfarchiving', pdfarchiving, pdfarchiving_restrictions);
 
         var conditions = json.publishers.publisher.conditions.condition;
         var copyrightlinks = json.publishers.publisher.copyrightlinks.copyrightlink;
@@ -105,7 +127,8 @@ function showResult(json) {
         $('#journal-headers').show();
         $('#journal-allows').show();
         $('#results').fadeIn();
-    } catch (TypeError) {
+    } catch (error) {
+        console.log(error);
         cleanResults();
         showMessage('Although this record exists in SHERPA/RoMEO, it has not been evaluated yet. Please try again in a few weeks.', 'danger');
     }

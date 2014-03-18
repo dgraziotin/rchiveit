@@ -67,7 +67,7 @@ $(document).ready(function () {
     });
 
     $('a.scroll').click(function (ev) {
-        scrollTo($(this).attr('href'));
+        //scrollTo($(this).attr('href'));
         ev.preventDefault();
     });
 
@@ -132,22 +132,22 @@ $(document).ready(function () {
                 }
 
                 showMessage(message, 'info');
-                scrollTo('#examples', SCROLL_TIME);
+                //scrollTo('#examples', SCROLL_TIME);
 
                 return;
             } else if (resultsCount == 1) {
 
                 $('div.row.row-journals').remove();
                 showResult(json);
-                scrollTo('#examples', SCROLL_TIME);
+                //scrollTo('#examples', SCROLL_TIME);
 
                 return;
             } else {
-
                 var message = 'No results found.';
                 switch (searchByWhat) {
                     case 'by-issn':
-                        message = 'No results found. This case should not happen. Please contact the developer.';
+                        showResult(json);
+                        return;
                         break;
                     case 'by-id':
                         message = 'No results found. This case should not happen. Please contact the developer.';
@@ -170,7 +170,7 @@ $(document).ready(function () {
 
                 showMessage(message, 'info');
                 showResults(json);
-                scrollTo('#examples', SCROLL_TIME);
+                //scrollTo('#examples', SCROLL_TIME);
             }
         });
     });
