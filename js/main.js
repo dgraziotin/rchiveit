@@ -8,7 +8,7 @@ $(document).ready(function () {
             networks: ['twitter', 'facebook', 'googleplus', 'linkedin', 'reddit', 'tumblr', 'pinterest', 'stumbleupon', 'email'],
             orientation: 'vertical',
             urlToShare: 'http://rchive.it',
-            affix: 'left center'
+            affix: 'left center',
         });
     }
 
@@ -21,6 +21,7 @@ $(document).ready(function () {
                 $('#query').val(ISSNFromURL);
                 $('select#search-by-what').val('by-issn');
                 $('button#search').click();
+
             }
 
         });
@@ -67,7 +68,7 @@ $(document).ready(function () {
     });
 
     $('a.scroll').click(function (ev) {
-        //scrollTo($(this).attr('href'));
+        scrollTo($(this).attr('href'));
         ev.preventDefault();
     });
 
@@ -132,14 +133,12 @@ $(document).ready(function () {
                 }
 
                 showMessage(message, 'info');
-                //scrollTo('#examples', SCROLL_TIME);
 
                 return;
             } else if (resultsCount == 1) {
 
                 $('div.row.row-journals').remove();
                 showResult(json);
-                //scrollTo('#examples', SCROLL_TIME);
 
                 return;
             } else {
@@ -170,7 +169,6 @@ $(document).ready(function () {
 
                 showMessage(message, 'info');
                 showResults(json);
-                //scrollTo('#examples', SCROLL_TIME);
             }
         });
     });

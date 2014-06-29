@@ -127,6 +127,18 @@ function showResult(json) {
         $('#journal-headers').show();
         $('#journal-allows').show();
         $('#results').fadeIn();
+
+        $('#share').empty();
+        document.title = 'How can I self-archive in ' + $('h1#journal-name').html() + '? #openaccess';
+
+        $('#share').share({
+            networks: ['twitter', 'facebook', 'googleplus', 'linkedin', 'reddit', 'tumblr', 'pinterest', 'stumbleupon', 'email'],
+            orientation: 'vertical',
+            urlToShare: 'http://rchive.it/' + ISSNFromLocationBar(),
+            affix: 'left center',
+            theme: 'square',
+        });
+        
     } catch (error) {
         console.log(error);
         cleanResults();
