@@ -1,5 +1,20 @@
-function ISSNFromLocationBar(){
+function getHashFromLocationBar(){
     var hash = window.location.hash.split('#')[1];
+    return hash;
+}
+
+function isInternalLink(hashValue) {
+
+    if (!hashValue){
+        return false;
+    }
+
+    var internalUrls = ['banner', 'why', 'about', 'contribute', 'references', 'ref1', 'ref2', 'ref3', 'ref4', 'ref5'];
+    return ($.inArray(hashValue, internalUrls) > -1);
+}
+
+function ISSNFromLocationBar(){
+    var hash = getHashFromLocationBar();
     if (isValidISSN(hash)){
         return hash;
     }

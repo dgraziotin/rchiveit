@@ -52,5 +52,7 @@ function showResults(json) {
 
     $('.row-journals').show();
     $('#results').fadeIn();
+    //http://stackoverflow.com/a/5298684/237076
+    history.pushState("", document.title, window.location.pathname + window.location.search);
     return;
 }

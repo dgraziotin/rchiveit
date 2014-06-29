@@ -22,6 +22,15 @@ $(document).ready(function () {
                 $('select#search-by-what').val('by-issn');
                 $('button#search').click();
 
+            }else{
+                
+                var hash = getHashFromLocationBar();
+                if (!isInternalLink(hash)){
+                    $('#query').val(hash);
+                    $('select#search-by-what').val('by-publisher');
+                    $('button#search').click();
+                }
+
             }
 
         });

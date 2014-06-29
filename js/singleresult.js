@@ -75,6 +75,12 @@ function showResult(json) {
             $('#journal-publisher').text('Publisher\'s default policies.');
             $('#journal-issn').text('Individual journals\' rights may be different.');
             copyrightLinkURL = 'http://www.sherpa.ac.uk/romeo/pub/' + json.publishers.publisher.id + '/';
+           
+            window.location.hash = journalPublisher;
+            var permalink = window.location.origin +'/#' + journalPublisher;
+            $('#journal-permalink').html('Permalink to this entry: <input type="text" id="permalink" class="form-control" style="width:70%;display:inline" value="' +permalink +'" readonly="readonly">');
+
+
         } else {
 
             var journal = json.journals.journal;
