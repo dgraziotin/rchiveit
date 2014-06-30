@@ -1,37 +1,6 @@
 var SCROLL_TIME = 2000;
 var MIN_WIDTH_FOR_SHARE_WIDGET = 1068;
 
-function share() {
-
-    $('#share').empty();
-
-    if ($(window).width() < MIN_WIDTH_FOR_SHARE_WIDGET)
-        return;
-
-    var hash = getHashFromLocationBar();
-    var permalink = 'http://rchive.it';
-
-    if (hash) {
-
-        permalink = window.location.origin + '/#' + hash.replace(/\s+/g, '+');
-        var journalName = $('h1#journal-name').text();
-
-        document.title = 'How can I self-archive my ' + journalName + ' #research article? ' + ' #openaccess';
-
-    } else {
-
-        document.title = 'How can I self-archive my #research article? #openaccess #openscience';
-    }
-
-    $('#share').share({
-        networks: ['twitter', 'facebook', 'googleplus', 'linkedin', 'reddit', 'tumblr', 'pinterest', 'stumbleupon', 'email'],
-        orientation: 'vertical',
-        affix: 'left center',
-        urlToShare: permalink,
-    });
-
-}
-
 $(document).ready(function() {
 
     var hash = getHashFromLocationBar();
@@ -43,30 +12,16 @@ $(document).ready(function() {
             $('select#search-by-what').val('by-issn');
 
             setTimeout(function() {
-                $('button#search').trigger('click');
+                query(hash, 'by-issn');
             }, 10);
-
 
 
         } else if (isPublisherDisambiguer(hash)) {
 
             var disambiguer = publisherDisambiguer(hash);
 
-
             setTimeout(function() {
-                $.get("/api.php", {
-                    searchValue: disambiguer,
-                    searchByWhat: 'by-id'
-                }, function(data) {
-                    pleaseWait(false);
-                    var json = $.xml2json(data);
-                    $('div.pre-pre-results').css('visibility', 'visible');
-                    pleaseWait(true);
-                    hideAllMessages();
-                    cleanResults();
-                    showResult(json);
-
-                });
+                query(disambiguer, 'by-id');
             }, 10);
 
 
@@ -76,8 +31,8 @@ $(document).ready(function() {
             $('select#search-by-what').val('by-publisher');
 
             setTimeout(function() {
-                $('button#search').trigger('click');
-            });
+                query(hash, 'by-publisher');
+            }, 10);
 
         }
 
@@ -91,8 +46,7 @@ $(document).ready(function() {
         $(window).hashchange(function() {
 
             var hash = getHashFromLocationBar();
-            if (hash){
-                console.log('qui');
+            if (hash) {
                 window.location.href = window.location.origin + '/#' + getHashFromLocationBar().replace(/\s+/g, '+');
             } else {
                 window.location.href = window.location.origin;
@@ -113,7 +67,6 @@ $(document).ready(function() {
         if (isISSN) {
 
             window.location.hash = disambiguer;
-
             return;
 
         } else {
@@ -142,21 +95,6 @@ $(document).ready(function() {
     });
 
 
-    function query(value, byWhat) {
-        pleaseWait(true);
-        cleanResults();
-
-        hideAllMessages();
-        $.get("/api.php", {
-            searchValue: value,
-            searchByWhat: byWhat
-        }, function(data) {
-            pleaseWait(false);
-            var json = $.xml2json(data);
-            return json;
-        });
-    }
-
     $('button#search').click(function() {
 
         var searchValue = encodeURI($.trim($('#query').val()));
@@ -170,85 +108,8 @@ $(document).ready(function() {
             searchByWhat = 'by-journal';
         }
 
+        query(searchValue, searchByWhat);
 
-        $('div.pre-pre-results').css('visibility', 'visible');
-        pleaseWait(true);
-        hideAllMessages();
-        cleanResults();
-
-
-        $.get("/api.php", {
-            searchValue: searchValue,
-            searchByWhat: searchByWhat
-        }, function(data) {
-            pleaseWait(false);
-            var json = $.xml2json(data);
-            var resultsCount = json.header.numhits;
-
-            if (resultsCount == 0) {
-                $('div.row.row-journals').remove();
-                $('#results').append('<div class="row"></div>');
-                var message = 'No results found.';
-                switch (searchByWhat) {
-                    case 'by-issn':
-                        message = 'No results found. Please double-check the ISSN number (1234-5678).<br/>' +
-                            'Consider searching by publication name or publisher name';
-                        break;
-                    case 'by-id':
-                        message = 'No results found. This case should not happen. Please contact the developer.';
-                        break;
-                    case 'by-journal':
-                        message = 'No results found. Please double-check the publication name. <br/>' +
-                            'Consider searching by publisher name or ISSN number (1234-5678)';
-                        break;
-                    case 'by-publisher':
-                        message = 'No results found. Please double-check the publisher name. <br/>' +
-                            'Consider searching by publication name or ISSN number (1234-5678)';
-                        break;
-                    default:
-                        message = 'No results found.';
-                }
-
-                showMessage(message, 'info');
-
-                return;
-            } else if (resultsCount == 1) {
-
-                $('div.row.row-journals').remove();
-                showResult(json);
-                $('#query').val($('#query').val().replace(/\+/g, " "));
-
-                return;
-            } else {
-                var message = 'No results found.';
-                switch (searchByWhat) {
-                    case 'by-issn':
-                        showResult(json);
-                        return;
-                        break;
-                    case 'by-id':
-                        message = 'No results found. This case should not happen. Please contact the developer.';
-                        break;
-                    case 'by-journal':
-                        message = 'Multiple results found. Here are some of them. <br/>' +
-                            '<strong>Not what you were looking for?</strong> Consider searching again: ' +
-                            '<ol><li>By ISSN number</li>' +
-                            '<li>By publisher name</li></ol>';
-                        break;
-                    case 'by-publisher':
-                        message = 'Multiple results found. Here are some of them. <br/>' +
-                            '<strong>Not what you were looking for?</strong> Consider searching again: ' +
-                            '<ol><li>By ISSN number</li>' +
-                            '<li>By publication name</li></ol>';
-                        break;
-                    default:
-                        message = 'No results found.';
-                }
-
-                showMessage(message, 'info');
-                showResults(json);
-            }
-        });
     });
 
     $('button.try-out').click(function() {

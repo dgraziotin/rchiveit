@@ -14,19 +14,19 @@ function showPermission(eprint, archiving, restrictions) {
     $('div#journal-allows > div#' + eprint + ' > h1').attr("class", restrictionIconCSSClass(archiving));
     $('div#journal-allows > div#' + eprint + ' > h1').show();
     $('div#journal-allows > div#' + eprint + ' > h4.permission.' + archiving).show();
-    if (restrictions){
+    if (restrictions) {
         var restrictions_html = '';
-        if ($.isArray(restrictions)){
-            jQuery.each( restrictions, function( i, val ) {
+        if ($.isArray(restrictions)) {
+            jQuery.each(restrictions, function(i, val) {
                 if (val)
-                    restrictions_html += '<li>' + val +'</li>'
+                    restrictions_html += '<li>' + val + '</li>'
             });
-        }else{
+        } else {
             if (restrictions)
                 restrictions_html = '<li>' + restrictions + '</li>';
         }
         if (restrictions_html)
-            $('div#journal-allows > div#' + eprint + ' > div.permission.' + archiving).show().html('<h4>Subject to the following restrictions</h4><ul class="restrictions">'+ restrictions_html +'</ul>');
+            $('div#journal-allows > div#' + eprint + ' > div.permission.' + archiving).show().html('<h4>Subject to the following restrictions</h4><ul class="restrictions">' + restrictions_html + '</ul>');
     }
     $('div#journal-allows > div#' + eprint + ' > p').show();
     $('div#journal-allows > div#' + eprint).show();
@@ -76,18 +76,18 @@ function showResult(json) {
             $('#journal-publisher').text('Publisher\'s default policies.');
             $('#journal-issn').text('Individual journals\' rights may be different.');
             copyrightLinkURL = 'http://www.sherpa.ac.uk/romeo/pub/' + json.publishers.publisher.id + '/';
-           
+
             var hash = getHashFromLocationBar();
-            
-            if (isPublisherDisambiguer(hash)){
+
+            if (isPublisherDisambiguer(hash)) {
                 var disambiguer = publisherDisambiguer(hash);
                 var cleanPublisherName = journalPublisher.replace(/\s+/g, '+').toLowerCase();
-                var permalink = window.location.origin +'/#' + cleanPublisherName + '-' + disambiguer;
-                $('#journal-permalink').html('Permalink to this entry: <input type="text" id="permalink" class="form-control" style="width:70%;display:inline" value="' +permalink +'" readonly="readonly">');
-            }else{
+                var permalink = window.location.origin + '/#' + cleanPublisherName + '-' + disambiguer;
+                $('#journal-permalink').html('Permalink to this entry: <input type="text" id="permalink" class="form-control" style="width:70%;display:inline" value="' + permalink + '" readonly="readonly">');
+            } else {
                 var cleanPublisherName = journalPublisher.replace(/\s+/g, '+').toLowerCase();
-                var permalink = window.location.origin +'/#' + cleanPublisherName;
-                $('#journal-permalink').html('Permalink to this entry: <input type="text" id="permalink" class="form-control" style="width:70%;display:inline" value="' +permalink +'" readonly="readonly">');
+                var permalink = window.location.origin + '/#' + cleanPublisherName;
+                $('#journal-permalink').html('Permalink to this entry: <input type="text" id="permalink" class="form-control" style="width:70%;display:inline" value="' + permalink + '" readonly="readonly">');
             }
 
         } else {
@@ -100,13 +100,13 @@ function showResult(json) {
             $('#journal-name').text(journalName);
             $('#journal-publisher').text('Publisher: ' + journalPublisher);
             $('#journal-issn').text('ISSN: ' + journalISSN);
-            var permalink = window.location.origin +'/#' + journalISSN;
+            var permalink = window.location.origin + '/#' + journalISSN;
 
-            $('#journal-permalink').html('Permalink to this entry: <input type="text" id="permalink" class="form-control" style="width:70%;display:inline" value="' +permalink +'" readonly="readonly">');
+            $('#journal-permalink').html('Permalink to this entry: <input type="text" id="permalink" class="form-control" style="width:70%;display:inline" value="' + permalink + '" readonly="readonly">');
             copyrightLinkURL = 'http://www.sherpa.ac.uk/romeo/issn/' + journalISSN + '/';
         }
 
-        if ($.isArray(json.publishers.publisher)){
+        if ($.isArray(json.publishers.publisher)) {
             json.publishers.publisher = json.publishers.publisher[0];
         }
 
@@ -145,8 +145,6 @@ function showResult(json) {
         $('#journal-allows').show();
         $('#results').fadeIn();
 
-        share();
-        
     } catch (error) {
         console.log(error);
         cleanResults();

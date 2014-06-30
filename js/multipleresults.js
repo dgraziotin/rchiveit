@@ -2,11 +2,6 @@ function showResults(json) {
     
     var resultsCount = json.header.numhits;
 
-    //TODO: think a clever way
-    //if (resultsCount > 36) {
-    //    resultsCount = 36;
-    //}
-
     var colSize = 3;
 
     $('div.row.row-journals').remove();
