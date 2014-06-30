@@ -36,8 +36,6 @@ $(document).ready(function() {
 
         }
 
-        share();
-
     }
 
 

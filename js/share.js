@@ -13,7 +13,9 @@ function share() {
         permalink = window.location.origin + '/#' + hash.replace(/\s+/g, '+');
         var journalName = $('h1#journal-name').text();
 
-        document.title = 'How can I self-archive my ' + journalName + ' #research article? ' + ' #openaccess';
+        console.log(journalName);
+
+        document.title = 'Q: How to self-archive ' + journalName + ' #research articles to make them #openaccess? A: ';
 
     } else {
 

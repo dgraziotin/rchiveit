@@ -71,7 +71,6 @@ function handleResults(searchValue, searchByWhat, json) {
 
         showMessage(message, 'info');
         showResults(json);
-        share();
     }
 
 }
@@ -91,6 +90,8 @@ function query(searchValue, searchByWhat) {
     }, function(data) {
         pleaseWait(false);
         var json = $.xml2json(data);
-        return handleResults(searchValue, searchByWhat, json);
+        handleResults(searchValue, searchByWhat, json);
+
+        share();
     });
 }
