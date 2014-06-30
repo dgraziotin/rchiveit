@@ -70,16 +70,25 @@ function showResult(json) {
         var copyrightLinkURL;
 
         if (typeof json.journals.journal == 'undefined') {
+
             journalName = journalPublisher = journalISSN = json.publishers.publisher.name;
             $('#journal-name').text(journalName);
             $('#journal-publisher').text('Publisher\'s default policies.');
             $('#journal-issn').text('Individual journals\' rights may be different.');
             copyrightLinkURL = 'http://www.sherpa.ac.uk/romeo/pub/' + json.publishers.publisher.id + '/';
            
-            window.location.hash = journalPublisher;
-            var permalink = window.location.origin +'/#' + journalPublisher;
-            $('#journal-permalink').html('Permalink to this entry: <input type="text" id="permalink" class="form-control" style="width:70%;display:inline" value="' +permalink +'" readonly="readonly">');
-
+            var hash = getHashFromLocationBar();
+            
+            if (isPublisherDisambiguer(hash)){
+                var disambiguer = publisherDisambiguer(hash);
+                var cleanPublisherName = journalPublisher.replace(/\s+/g, '+').toLowerCase();
+                var permalink = window.location.origin +'/#' + cleanPublisherName + '-' + disambiguer;
+                $('#journal-permalink').html('Permalink to this entry: <input type="text" id="permalink" class="form-control" style="width:70%;display:inline" value="' +permalink +'" readonly="readonly">');
+            }else{
+                var cleanPublisherName = journalPublisher.replace(/\s+/g, '+').toLowerCase();
+                var permalink = window.location.origin +'/#' + cleanPublisherName;
+                $('#journal-permalink').html('Permalink to this entry: <input type="text" id="permalink" class="form-control" style="width:70%;display:inline" value="' +permalink +'" readonly="readonly">');
+            }
 
         } else {
 
@@ -92,13 +101,14 @@ function showResult(json) {
             $('#journal-publisher').text('Publisher: ' + journalPublisher);
             $('#journal-issn').text('ISSN: ' + journalISSN);
             var permalink = window.location.origin +'/#' + journalISSN;
-            window.location.hash = journalISSN;
+
             $('#journal-permalink').html('Permalink to this entry: <input type="text" id="permalink" class="form-control" style="width:70%;display:inline" value="' +permalink +'" readonly="readonly">');
             copyrightLinkURL = 'http://www.sherpa.ac.uk/romeo/issn/' + journalISSN + '/';
         }
 
-        if ($.isArray(json.publishers.publisher))
+        if ($.isArray(json.publishers.publisher)){
             json.publishers.publisher = json.publishers.publisher[0];
+        }
 
         var publisher = json.publishers.publisher;
 
@@ -127,6 +137,7 @@ function showResult(json) {
         if (!$.isArray(copyrightlinks)) {
             copyrightlinks = [copyrightlinks];
         }
+
         copyrightlinks.unshift(journalSherpaRomeoLink);
         showInfo(conditions, copyrightlinks);
 
@@ -134,16 +145,7 @@ function showResult(json) {
         $('#journal-allows').show();
         $('#results').fadeIn();
 
-        $('#share').empty();
-        document.title = 'How can I self-archive in ' + $('h1#journal-name').html() + '? #openaccess';
-
-        $('#share').share({
-            networks: ['twitter', 'facebook', 'googleplus', 'linkedin', 'reddit', 'tumblr', 'pinterest', 'stumbleupon', 'email'],
-            orientation: 'vertical',
-            urlToShare: 'http://rchive.it/' + ISSNFromLocationBar(),
-            affix: 'left center',
-            theme: 'square',
-        });
+        share();
         
     } catch (error) {
         console.log(error);

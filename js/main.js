@@ -1,95 +1,163 @@
 var SCROLL_TIME = 2000;
 var MIN_WIDTH_FOR_SHARE_WIDGET = 1068;
 
-$(document).ready(function () {
+function share() {
 
-    if ($(window).width() >= MIN_WIDTH_FOR_SHARE_WIDGET) {
-        $('#share').share({
-            networks: ['twitter', 'facebook', 'googleplus', 'linkedin', 'reddit', 'tumblr', 'pinterest', 'stumbleupon', 'email'],
-            orientation: 'vertical',
-            urlToShare: 'http://rchive.it',
-            affix: 'left center',
-        });
+    $('#share').empty();
+
+    if ($(window).width() < MIN_WIDTH_FOR_SHARE_WIDGET)
+        return;
+
+    var hash = getHashFromLocationBar();
+    var permalink = 'http://rchive.it';
+
+    if (hash) {
+
+        permalink = window.location.origin + '/#' + hash.replace(/\s+/g, '+');
+        var journalName = $('h1#journal-name').text();
+
+        document.title = 'How can I self-archive my ' + journalName + ' #research article? ' + ' #openaccess';
+
+    } else {
+
+        document.title = 'How can I self-archive my #research article? #openaccess #openscience';
     }
 
+    $('#share').share({
+        networks: ['twitter', 'facebook', 'googleplus', 'linkedin', 'reddit', 'tumblr', 'pinterest', 'stumbleupon', 'email'],
+        orientation: 'vertical',
+        affix: 'left center',
+        urlToShare: permalink,
+    });
+
+}
+
+$(document).ready(function() {
+
+    var hash = getHashFromLocationBar();
+
+    if (hash && !isInternalLink(hash)) {
+        if (isValidISSN(hash)) {
+
+            $('#query').val(hash);
+            $('select#search-by-what').val('by-issn');
+
+            setTimeout(function() {
+                $('button#search').trigger('click');
+            }, 10);
+
+
+
+        } else if (isPublisherDisambiguer(hash)) {
+
+            var disambiguer = publisherDisambiguer(hash);
+
+
+            setTimeout(function() {
+                $.get("/api.php", {
+                    searchValue: disambiguer,
+                    searchByWhat: 'by-id'
+                }, function(data) {
+                    pleaseWait(false);
+                    var json = $.xml2json(data);
+                    $('div.pre-pre-results').css('visibility', 'visible');
+                    pleaseWait(true);
+                    hideAllMessages();
+                    cleanResults();
+                    showResult(json);
+
+                });
+            }, 10);
+
+
+        } else {
+
+            $('#query').val(hash);
+            $('select#search-by-what').val('by-publisher');
+
+            setTimeout(function() {
+                $('button#search').trigger('click');
+            });
+
+        }
+
+        share();
+
+    }
+
+
     $(window).load(function() {
-        $(window).hashchange( function(){
 
-            // http://stackoverflow.com/questions/3008696/after-all-document-ready-have-run-is-there-and-event-for-that
-            var ISSNFromURL = ISSNFromLocationBar();
-            if (ISSNFromURL){
-                $('#query').val(ISSNFromURL);
-                $('select#search-by-what').val('by-issn');
-                $('button#search').click();
+        $(window).hashchange(function() {
 
-            }else{
-                
-                var hash = getHashFromLocationBar();
-                if (!isInternalLink(hash)){
-                    $('#query').val(hash);
-                    $('select#search-by-what').val('by-publisher');
-                    $('button#search').click();
-                }
-
+            var hash = getHashFromLocationBar();
+            if (hash){
+                console.log('qui');
+                window.location.href = window.location.origin + '/#' + getHashFromLocationBar().replace(/\s+/g, '+');
+            } else {
+                window.location.href = window.location.origin;
             }
-
+            window.location.reload();
         });
-        $(window).hashchange();
+
     });
 
-    jQuery('span.email').each(function () {
-        var emailNoSpam = jQuery(this).text();
-        var emailAddress = emailNoSpam.replace(' AT ', '@').replace(' DOT ', '.').replace(' DOT ', '.');
-        jQuery(this).text(emailAddress);
-    });
-
-    $('body').on('click', 'div.journal', function () {
+    $('body').on('click', 'div.journal', function() {
         if ($.active)
             return;
 
-        pleaseWait(true);
-        cleanResults();
 
         var disambiguer = encodeURI($.trim($(this).children("span").html()));
 
         var isISSN = isValidISSN(disambiguer);
         if (isISSN) {
-            hideAllMessages();
-            $.get("/api.php", {
-                searchValue: disambiguer,
-                searchByWhat: 'by-issn'
-            }, function (data) {
-                pleaseWait(false);
-                var json = $.xml2json(data);
-                showResult(json);
-            });
+
+            window.location.hash = disambiguer;
+
+            return;
+
         } else {
-            hideAllMessages();
-            $.get("/api.php", {
-                searchValue: disambiguer,
-                searchByWhat: 'by-id'
-            }, function (data) {
-                pleaseWait(false);
-                var json = $.xml2json(data);
-                showResult(json);
-            });
+
+            var name = $(this).children("h3").text().toLowerCase();
+            var hash = name + '-' + disambiguer;
+
+            window.location.hash = hash;
+            return;
+
         }
     });
 
-    $('a.scroll').click(function (ev) {
+
+    $('a.scroll').click(function(ev) {
         scrollTo($(this).attr('href'));
         ev.preventDefault();
     });
 
     $("#query").focus();
 
-    $('form#sherpa-romeo').submit(function (ev) {
+    $('form#sherpa-romeo').submit(function(ev) {
         cleanResults();
         ev.preventDefault();
         $('button#search').click();
     });
 
-    $('button#search').click(function () {
+
+    function query(value, byWhat) {
+        pleaseWait(true);
+        cleanResults();
+
+        hideAllMessages();
+        $.get("/api.php", {
+            searchValue: value,
+            searchByWhat: byWhat
+        }, function(data) {
+            pleaseWait(false);
+            var json = $.xml2json(data);
+            return json;
+        });
+    }
+
+    $('button#search').click(function() {
 
         var searchValue = encodeURI($.trim($('#query').val()));
         var searchByWhat = encodeURI($.trim($('#search-by-what').val()));
@@ -97,7 +165,7 @@ $(document).ready(function () {
         if (!searchValue || !searchByWhat || $.active)
             return;
 
-        if (!isValidISSN(searchValue) && searchByWhat == 'by-issn'){
+        if (!isValidISSN(searchValue) && searchByWhat == 'by-issn') {
             $('#search-by-what').val('by-journal');
             searchByWhat = 'by-journal';
         }
@@ -108,11 +176,11 @@ $(document).ready(function () {
         hideAllMessages();
         cleanResults();
 
-        
+
         $.get("/api.php", {
             searchValue: searchValue,
             searchByWhat: searchByWhat
-        }, function (data) {
+        }, function(data) {
             pleaseWait(false);
             var json = $.xml2json(data);
             var resultsCount = json.header.numhits;
@@ -148,6 +216,7 @@ $(document).ready(function () {
 
                 $('div.row.row-journals').remove();
                 showResult(json);
+                $('#query').val($('#query').val().replace(/\+/g, " "));
 
                 return;
             } else {
@@ -182,7 +251,7 @@ $(document).ready(function () {
         });
     });
 
-    $('button.try-out').click(function () {
+    $('button.try-out').click(function() {
         if ($.active)
             return;
         $('#query').val($(this).text());
@@ -190,11 +259,19 @@ $(document).ready(function () {
         $('button#search').click();
     });
 
-    $('body').bind('beforeunload', function () {
+    $('body').bind('beforeunload', function() {
         $('form').reset();
     });
 
-    $('body').on('click', 'input#permalink', function(){this.select();});
+    $('body').on('click', 'input#permalink', function() {
+        this.select();
+    });
 
+
+    jQuery('span.email').each(function() {
+        var emailNoSpam = jQuery(this).text();
+        var emailAddress = emailNoSpam.replace(' AT ', '@').replace(' DOT ', '.').replace(' DOT ', '.');
+        jQuery(this).text(emailAddress);
+    });
 
 });

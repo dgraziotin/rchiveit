@@ -1,5 +1,14 @@
+function isNumeric(num) {
+    return !isNaN(num);
+}
+
 function getHashFromLocationBar(){
     var hash = window.location.hash.split('#')[1];
+
+    if (!hash)
+        return null;
+
+    var cleanHash = hash.replace(/\s+/g, '+').toLowerCase();
     return hash;
 }
 
@@ -12,6 +21,29 @@ function isInternalLink(hashValue) {
     var internalUrls = ['banner', 'why', 'about', 'contribute', 'references', 'ref1', 'ref2', 'ref3', 'ref4', 'ref5'];
     return ($.inArray(hashValue, internalUrls) > -1);
 }
+
+function isPublisherDisambiguer(hashValue){
+    if (!hashValue)
+        return false;
+
+    var afterLastDash = hashValue.split("-").pop();
+
+    return isNumeric(afterLastDash);
+}
+
+function publisherDisambiguer(hashValue){
+    if(!hashValue)
+        return null;
+
+    var afterLastDash = hashValue.split("-").pop();
+
+    if (isNumeric(afterLastDash)){
+        return afterLastDash;
+    } else{
+        return null;
+    }
+}
+
 
 function ISSNFromLocationBar(){
     var hash = getHashFromLocationBar();
