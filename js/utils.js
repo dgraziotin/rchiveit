@@ -3,7 +3,7 @@ function isNumeric(num) {
 }
 
 function getHashFromLocationBar(){
-    var hash = window.location.hash.split('#')[1];
+    var hash = window.location.hash.split('#')[1].split('?')[0];
 
     if (!hash)
         return null;
