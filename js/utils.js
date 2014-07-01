@@ -3,13 +3,15 @@ function isNumeric(num) {
 }
 
 function getHashFromLocationBar(){
-    var hash = window.location.hash.split('#')[1].split('?')[0];
+    
+    var hash = window.location.hash.split('#')[1];
 
     if (!hash)
         return null;
 
-    var cleanHash = hash.replace(/\s+/g, '+').toLowerCase();
-    return hash;
+    var nonGetHash = hash.split('?')[0];
+    var cleanHash = nonGetHash.replace(/\s+/g, '+').toLowerCase();
+    return cleanHash;
 }
 
 function isInternalLink(hashValue) {
