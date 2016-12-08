@@ -6,7 +6,7 @@ function share() {
         return;
 
     var hash = getHashFromLocationBar();
-    var permalink = 'http://rchive.it';
+    var permalink = 'https://rchive.it';
 
     if (hash) {
 
@@ -44,7 +44,7 @@ function share() {
 
 
     setTimeout(function() {
-        jQuery.getScript('http://rchive.site/bower_components/share42/share42.js');
+        jQuery.getScript('https://rchive.it/bower_components/share42/share42.js');
     }, 10);
 
 
